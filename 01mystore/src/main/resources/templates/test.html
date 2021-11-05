@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>这是标题</title>
+    <style>
+
+img {
+    width: 100px;
+    height: 100px;
+}
+    </style>
+</head>
+<body>
+<div>
+    <!--
+    Student 当前循环对象变量的名称（随意）
+    userStat 当前循环对象的状态
+    ${userList}当前循环的集合
+    -->
+    <h1><span th:text="${userStaus}"></span></h1>
+<!--    <div th:img="'/img/userImage/'+${userImage}"></div><br>-->
+<!--        <img src=>-->
+    <div id="TX" name="TX" width="60px" height="60px">
+        <img th:src="'/img/userImage/'+${user.UserTouxiang}">
+    </div>
+
+<!--    <img src="/img/userImage/1.jpg">-->
+
+<!--    <a th:href="@{user}">跳转查询id为1的用户</a><br>-->
+
+    <div th:each="user,userStat:${user}">
+        <span th:text="${userStat.index}"></span>
+        <span th:text="${user.UserId}"></span>
+        <span th:text="${user.UserTouxiang}"></span>
+        <span th:text="${user.UserName}"></span>
+        <span th:text="${user.UserSex}"></span>
+        <span th:text="${user.UserEmail}"></span>
+        <span th:text="${user.UserNumber}"></span>
+        <span th:text="${user.UserPassword}"></span>
+        <span th:text="${user.UserAddressId}"></span>
+    </div>
+    <hr>
+    <a th:href="@{userList}">点击查看全部学生</a><br>
+    <hr>
+<!--    <span th:="text" valu="${userList}"></span>-->
+    <div th:each="user,userStat:${userList}">
+        <span th:text="${userStat.index}"></span>
+        <span th:text="${user.UserId}"></span>
+        <span th:text="${user.UserTouxiang}"></span>
+        <span th:text="${user.UserName}"></span>
+        <span th:text="${user.UserSex}"></span>
+        <span th:text="${user.UserEmail}"></span>
+        <span th:text="${user.UserNumber}"></span>
+        <span th:text="${user.UserPassword}"></span>
+        <span th:text="${user.UserAddressId}"></span>
+    </div>
+</div>
+
+
+</body>
+</html>

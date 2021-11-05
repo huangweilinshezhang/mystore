@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>这是标题</title>
+    <script src="js/jquery-1.12.2.js"></script>
+    <script type="text/javascript">
+		          function previewFile() {
+		     var preview = document.querySelector('img');
+		     var fileDom = document.querySelector('input[type=file]')
+		     var file = fileDom.files[0]
+		     // 限制上传图片的大小
+		     if(file.size > 1024 * 1024 * 2) {
+			      alert('图片大小不能超过 2MB!');
+			      return false;
+		     }
+		     // 当前浏览器支持FileReader
+		     if(window.FileReader) {
+		         var reader  = new FileReader()
+		         reader.readAsDataURL(file)
+		         reader.addEventListener("load", function () {
+		             console.log('reader.result', reader.result)
+		             preview.src = reader.result
+		         }, false)
+		     }else {
+		         alert('Not supported by your browser!')
+		     }
+		  }
+		    </script>
+</head>
+
+<body><!------------------------------head------------------------------>
+<h1>增加用户界面</h1>
+<form action="/userAdd">
+    姓名:<input name="userName"/><br>
+
+    密码:<input name="userPassword" type="password"/><br>
+    性别:<input name="userSex"/><br>
+    年龄:<input name="userAge"/><br>
+    Email:<input name="userEmail"/><br>
+    电话:<input name="userNumber"/><br>
+    地址:<input name="userAddressId"/><br>
+    <input type="submit" value="Springboot注册"/>
+</form>
+<br>
+
+<h1>用户登录</h1>
+<form action="/userLogin" method="post">
+    账户:<input name="id"/><br>
+    密码:<input name="password" type="password"/><br>
+    <!--		<input name="answer"/><img src="code"><br>-->
+    <input type="submit" value="login"/>
+</form>
+
+<h1>查看用户界面</h1>
+<form action="/user">
+    请输入你要查找的id:<input name="id"/><br>
+    <input type="submit" value="Springboot查看用户"/>
+</form>
+<hr>
+<a th:href="@{userList}">点击查看全部学生</a><br>
+<hr>
+<h1>查看所有用户界面</h1>
+<form action="/userList">
+    请输入你选择的页数:<input name="page"/><br>
+    请输每页查询多少条:<input name="count"/><br>
+    <input type="submit" value="Springboot查看所有用户界面"/>
+</form>
+
+<h1>删除用户界面</h1>
+<form action="/deleteByUserIdKey" enctype="multipart/form-data">
+    请输入你要删除的id:<input name="id"/><br>
+    <input type="submit" value="Springboot删除"/>
+</form>
+
+<h1>修改页面</h1>
+<form action="/upDateUser" method="post" enctype="multipart/form-data">
+    请输入你要修改的id:<input name="userId"/><br>
+    姓名:<input name="userName"/><br>
+    头像：
+    <div id="containner">
+        <input name="file" type="file"  id="imgFile" onchange="previewFile()"><br>
+        <img src="" height="200" alt="Image preview...">
+    </div>
+    密码:<input name="userPassword" type="password"/><br>
+    性别:<input name="userSex"/><br>
+    年龄:<input name="userAge"/><br>
+    Email:<input name="userEmail"/><br>
+    电话:<input name="userNumber"/><br>
+    地址:<input name="userAddressId"/><br>
+    <input type="submit" value="Springboot修改"/>
+</form>
+<div>
+
+
+</body>
+</html>

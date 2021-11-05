@@ -1,0 +1,9 @@
+# pagehelper
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+servlet:
+  session:
+    timeout: 10

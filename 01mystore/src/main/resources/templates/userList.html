@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en"xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/pagination.css}">
+    <script src="/js/jquery-1.12.2.js"></script>
+    <script th:src="@{/js/jquery.pagination.js}"></script>
+
+<!--    <script>-->
+<!--	      var pageNum = [[${pageInfo.pageNum}]];-->
+<!--	      var pages = [[${pageInfo.pages}]];-->
+<!--	      var pageSize = [[${pageInfo.pageSize}]];-->
+<!--	      var total = [[${pageInfo.total}]]-->
+<!--           console.log("pageSize:"+pageSize);-->
+<!--           console.log("pages:"+pages);-->
+<!--           console.log("total:"+total);-->
+
+<!--		    $("#pagination").pagination(total,{-->
+<!--	            currentPage: pageNum,-->
+<!--	            totalPage: pages,-->
+<!--	            isShow: true,-->
+<!--	            count: pageSize,-->
+<!--                    prev_text: '上一页',-->
+<!--                    next_text: '下一页',-->
+<!--                    items_per_page: pageSize, //每页的数据个数-->
+<!--                    current_page: 1, //当前页码-->
+<!--	        });-->
+
+<!--	        //点击页数-->
+<!--	        $('.ui-pagination-page-item').on('click', function () {-->
+<!--	            var pageNum = $(this).attr('data-current');-->
+<!--	            var pageSize = $(this).attr('data-current');-->
+
+<!--	            window.location.href = encodeURI('/getAllPerson?pageNum=' + pageNum+'&pageSize='+pageSize);-->
+<!--	        });-->
+
+<!--	  </script>-->
+
+    <style>
+     img {
+    width: 100px;
+    height: 100px;
+    }
+    a{
+    width: 40px;
+    height: 40px;
+<!--    background-color:black;-->
+    font:red;
+    text-decoration: none;
+    list-style:none;
+    }
+    li{list-style:none}
+    hover{text-docoration:none;}
+    button{
+    }
+
+    </style>
+    <script>
+                        		function Delete(mess,url){
+                        			if(confirm(mess)){
+                        				location.href=url;
+                        			}
+                        		}
+
+                        		function selall(o){
+                        			var a=document.getElementsByName('id[]');
+                        			for(var i=0; i<a.length; i++){
+                        				a[i].checked=o.checked;
+                        				console.log(a[i]);
+                        			}
+                        		}
+
+                        		function delmore(mess, formname){
+                        			if(confirm(mess)){
+                        				var form=document.getElementById(formname);
+                        				console.log(formname);
+                        				form.submit();
+                        			}
+                        		}
+                        	</script>
+</head>
+<body>
+
+
+<!--<div class="pages">-->
+<!--    <div id="Pagination"></div>-->
+<!--    <div class="searchPage" id="searchPage" name="searchPage">-->
+<!--    </div>-->
+<!--</div>-->
+<!--<a th:href="@{userList}">点击查看全部学生</a><br>-->
+<hr>
+<!--    <span th:="text" valu="${userList}"></span>-->
+<div th:each="user,userStat:${userList}">
+    <span th:text="${userStat.index}"></span>
+    <span th:text="${user.UserId}"></span>
+    <img th:src="'/img/userImage/'+${user.UserTouxiang}">
+    <span th:text="${user.UserName}"></span>
+    <span th:text="${user.UserSex}"></span>
+    <span th:text="${user.UserEmail}"></span>
+    <span th:text="${user.UserNumber}"></span>
+    <span th:text="${user.UserPassword}"></span>
+    <span th:text="${user.UserAddressId}"></span>
+</div>
+
+<!--<div th:text="${pageInfo}"></div>-->
+<table class="table  table-striped" border="1" cellspacing="0" cellpadding="0">
+    <tr>
+        <td>选中</td>
+        <td>序列</td>
+        <td>id</td>
+        <td>名字</td>
+        <td>头像</td>
+        <td>密码</td>
+        <td>性别</td>
+        <td>邮箱</td>
+        <td>电话</td>
+        <td>地址</td>
+        <td>操作</td>
+    </tr>
+    <tr th:each="user,userStat:${pageInfo.list}">
+        <td><input type="checkbox" name="" id="checkall" value="${user.UserId}" /></td>
+        <td><span th:text="${userStat.index}"></span></td>
+        <td><span th:text="${user.UserId}"></span></td>
+        <td><img th:src="'/img/userImage/'+${user.UserTouxiang}"></td>
+        <td><span th:text="${user.UserName}"></span></td>
+        <td><span th:text="${user.UserSex}"></span></td>
+        <td><span th:text="${user.UserEmail}"></span></td>
+        <td><span th:text="${user.UserNumber}"></span></td>
+        <td><span th:text="${user.UserPassword}"></span></td>
+        <td><span th:text="${user.UserAddressId}"></span> <br></td>
+        <td>
+            <button><a th:href="'/upUser?id='+${user.UserId}">修改</a></button>
+            <button><a th:href="'/deleteByUserIdKey?id='+${user.UserId}">删除</a></button>
+        </td>
+    </tr>
+</table>
+<div class="box">
+    <div id="pagination" class="page center" style="
+    width: 300px;
+    height: 100px;
+    border: red 1px solid;
+<!--    background-color:green;-->
+">
+        <div class="ui-pagination-page-item" id="ui-pagination-page-item" name="ui-pagination-page-item"></div>
+        <div class="ss">
+
+            <ul>
+                <li>
+                    <button> <a href="http://localhost:8085/getAllPerson?pageNum=1&pageSize=3">首页</a></button>
+                    <button><a th:href="'http://localhost:8085/getAllPerson?pageNum='+(${pageInfo.pageNum}-1)+'&pageSize=3'">上一页</a></button>
+                    <button><a th:href="'http://localhost:8085/getAllPerson?pageNum='+(${pageInfo.pageNum}+1)+'&pageSize=3'">下一页</a></button>
+                    <button> <a th:href="'http://localhost:8085/getAllPerson?pageNum='+${pageInfo.pages}+'&pageSize=3'">尾页</a></button>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>
