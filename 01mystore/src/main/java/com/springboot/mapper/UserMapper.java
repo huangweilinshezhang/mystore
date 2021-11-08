@@ -21,7 +21,7 @@ public interface UserMapper {
 
     Integer queryUserNumber();
 
-    User selectUserList();
+    User selectUserList(Integer pageNum,Integer pageSize);
 
     int deleteByUserIdKey(Integer id);
 

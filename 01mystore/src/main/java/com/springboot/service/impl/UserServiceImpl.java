@@ -39,8 +39,8 @@ public class UserServiceImpl implements UserServervice {
 
     @Override
 //    查询全部用户
-    public User selectUserList() {
-        return userMapper.selectUserList();
+    public User selectUserList(Integer pageNum,Integer pageSize) {
+        return userMapper.selectUserList(pageNum,pageSize);
     }
 
     @Override

@@ -15,7 +15,7 @@ public interface UserServervice {
 
     Integer queryUserNumber();
 
-    User selectUserList();
+    User selectUserList(Integer pageNum,Integer pageSize);
 
     void deleteByUserIdKey(Integer id);
 

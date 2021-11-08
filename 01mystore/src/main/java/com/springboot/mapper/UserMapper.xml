@@ -33,6 +33,12 @@
     *
     from user
   </select>
+  <select id="selectUserList" resultType="java.lang.Integer" resultMap="BaseUserResultMap">
+    select
+    *
+    from user
+  </select>
+
   <select id="login" resultType="java.lang.Integer">
     select
     count(*)

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>login.html</title>
+    <script src="js/jquery-1.12.2.js"></script>
+    <script type="text/javascript" src="js/function.js"></script>
+    <style>
+    input[type="submit" i] {
+	/* margin-right: 0%; */
+	margin-left: 5%;
+    background: rgba(20,20,20,0.8);
+    width:90%;
+    height:90%;
+	font-size: 18px;
+	color: #ffffff;
+	/* margin:0 auto */
+	text-align:center;
+	}
+	div{
+		margin:10% auto;
+		width: 24%;
+		height: 48%;
+		border: #666666 1px solid;
+		/* background: #777777; */
+	}
+	body{
+		background-color: white;
+		margin: auto;
+	}
+	h1{
+		margin: auto;
+		color: #ffffff;
+		background: rgba(20,20,20,0.8);
+		text-align:center;
+	}
+	span{
+		width: 20%;
+		font:red;
+	}
+	input{
+		width: 80%;
+        margin:2% 2%;
+	}
+    </style>
+</head>
+<body>
+<a href="/getAllProduct"><button value="返回商品列表" style="width:100px;height:50px;color:#fff;background: rgba(20,20,20,0.8);margin-top:2%;border-radius:12%;">返回首页</button></a>
+<div style="border-radius:2%;">
+    <h1 style="border-radius:2%;">增加商品</h1>
+    <form action="/productAdd">
+<!--        商品id:<input name="productId"><br>-->
+<!--        <tr th:each="product,productStat:${pageInfo.list}">-->
+<!--            <td><span th:text="${product.ProductFid}"></span></td>-->
+<!--        </tr>-->
+<!--        <tr th:each="product,productStat:${pageInfo2.list}">-->
+<!--            <td><span th:text="${product.ProductCid}"></span></td>-->
+<!--        </tr>-->
+<!--        <td><span th:text="${pageInfo}"></span></td><br>-->
+<!--        <td><a th:text="${session.listFid}"></a></td><br>-->
+<!--        <a th:href="'selectByCateId?cateId='+${pageInfo}">根目录</a>-->
+<!--        <a th:href="'upUser?id='+${session.user.UserId}">-->
+        <a th:text="${session.listCate}"></a>
+<!--        <td><a th:href value="'/selectByCateId?cateId='+${pageInfo}"></a></td>-->
+<!--        <select class="common-text required" name="parentId" th:each="cate,cateStat:${session.listFid}">-->
+
+
+<!--            <option><a th:text="${session.listCate}"></a></option>-->
+
+<!--        </select>-->
+<!--        <a th:href="'/selectByCateId?cateId='+${pageInfo}"></a>-->
+        名字:<input name="productName"><br>
+        父类商品分类:<input name="productCid"/><br>
+        子类商品分类:<input name="productFid"/><br>
+<!--        <select class="common-text required" name="parentId">-->
+<!--&lt;!&ndash;            <tr th:each="cate,cateStat:${pageInfo.list}">&ndash;&gt;-->
+<!--                <td><span th:text="${cate.CateName}"></span></td>-->
+<!--&lt;!&ndash;            </tr>&ndash;&gt;-->
+<!--        </select>-->
+
+
+        标签:<input name="productBiaoqian" /><br>
+        详情描述:<input name="productDetail"/><br>
+        图片:<input name="productTupian"/><br>
+        库存:<input name="productNumber"/><br>
+        价格:<input name="productPrice" /><br>
+        地址:<input name="productAddress"/><br>
+        快递:<input name="productKuaidi"/><br>
+        卖家ID:<input name="sellerId"/><br>
+        <input type="submit" value="增加商品"/>
+    </form>
+
+</div>
+</body>
+</html>

@@ -9,35 +9,35 @@
     <link rel="stylesheet" type="text/css" href="css/common.css"/>
     <link rel="stylesheet" type="text/css" href="css/main.css"/>
 
-<!--    <script>-->
-<!--	      var pageNum = [[${pageInfo.pageNum}]];-->
-<!--	      var pages = [[${pageInfo.pages}]];-->
-<!--	      var pageSize = [[${pageInfo.pageSize}]];-->
-<!--	      var total = [[${pageInfo.total}]]-->
-<!--           console.log("pageSize:"+pageSize);-->
-<!--           console.log("pages:"+pages);-->
-<!--           console.log("total:"+total);-->
+    <!--    <script>-->
+    <!--	      var pageNum = [[${pageInfo.pageNum}]];-->
+    <!--	      var pages = [[${pageInfo.pages}]];-->
+    <!--	      var pageSize = [[${pageInfo.pageSize}]];-->
+    <!--	      var total = [[${pageInfo.total}]]-->
+    <!--           console.log("pageSize:"+pageSize);-->
+    <!--           console.log("pages:"+pages);-->
+    <!--           console.log("total:"+total);-->
 
-<!--		    $("#pagination").pagination(total,{-->
-<!--	            currentPage: pageNum,-->
-<!--	            totalPage: pages,-->
-<!--	            isShow: true,-->
-<!--	            count: pageSize,-->
-<!--                    prev_text: '上一页',-->
-<!--                    next_text: '下一页',-->
-<!--                    items_per_page: pageSize, //每页的数据个数-->
-<!--                    current_page: 1, //当前页码-->
-<!--	        });-->
+    <!--		    $("#pagination").pagination(total,{-->
+    <!--	            currentPage: pageNum,-->
+    <!--	            totalPage: pages,-->
+    <!--	            isShow: true,-->
+    <!--	            count: pageSize,-->
+    <!--                    prev_text: '上一页',-->
+    <!--                    next_text: '下一页',-->
+    <!--                    items_per_page: pageSize, //每页的数据个数-->
+    <!--                    current_page: 1, //当前页码-->
+    <!--	        });-->
 
-<!--	        //点击页数-->
-<!--	        $('.ui-pagination-page-item').on('click', function () {-->
-<!--	            var pageNum = $(this).attr('data-current');-->
-<!--	            var pageSize = $(this).attr('data-current');-->
+    <!--	        //点击页数-->
+    <!--	        $('.ui-pagination-page-item').on('click', function () {-->
+    <!--	            var pageNum = $(this).attr('data-current');-->
+    <!--	            var pageSize = $(this).attr('data-current');-->
 
-<!--	            window.location.href = encodeURI('/getAllPerson?pageNum=' + pageNum+'&pageSize='+pageSize);-->
-<!--	        });-->
+    <!--	            window.location.href = encodeURI('/getAllPerson?pageNum=' + pageNum+'&pageSize='+pageSize);-->
+    <!--	        });-->
 
-<!--	  </script>-->
+    <!--	  </script>-->
 
     <style>
      img {
@@ -140,7 +140,7 @@
         <form action="/MonkeyShop3/manage/admin_douserdel" id="myform" method="post">
             <div class="result-title">
                 <div class="result-list">
-                    <a href="/reg"><i class="icon-font"></i>新增用户</a>
+                    <a href="/cateAdd"><i class="icon-font"></i>新增分类</a>
                     <a id="batchDel" href="javascript:delmore('你确定要批量删除用户么?', 'myform')"><i class="icon-font"></i>批量删除</a>
                     <!-- <a id="updateOrd" href="javascript:void(0)"><i class="icon-font"></i>更新排序</a> -->
                 </div>
@@ -148,32 +148,20 @@
             <div class="result-content">
                 <table class="result-tab" width="100%">
                     <tr>
-                        <th class="tc" width="5%"><input class="allChoose" onclick="selall(this)" type="checkbox"></th>
-                        <th>序列</td>
-                        <th>id</td>
-                        <th>名字</td>
-                        <th>头像</td>
-                        <th>密码</td>
-                        <th>性别</td>
-                        <th>邮箱</td>
-                        <th>电话</td>
-                        <th>地址</td>
-                        <th>操作</td>
+                        <th>分类ID（分类id作为MySQL主键不可改）</th>
+                        <th>分类名字</th>
+                        <th>操作</th>
                     </tr>
-                    <tr th:each="user,userStat:${pageInfo.list}">
-                        <td class="tc"><input type="checkbox" name="id[]" value="${user.UserId}" /></td>
-                        <td><span th:text="${userStat.index}"></span></td>
-                        <td><span th:text="${user.UserId}"></span></td>
-                        <td><img th:src="'/img/userImage/'+${user.UserTouxiang}"></td>
-                        <td><span th:text="${user.UserName}"></span></td>
-                        <td><span th:text="${user.UserSex}"></span></td>
-                        <td><span th:text="${user.UserEmail}"></span></td>
-                        <td><span th:text="${user.UserNumber}"></span></td>
-                        <td><span th:text="${user.UserPassword}"></span></td>
-                        <td><span th:text="${user.UserAddressId}"></span> <br></td>
+                    <tr th:each="cate,cateStat:${pageInfo.list}">
+
+<!--                        <td><span th:text="${userStat.index}"></span></td>-->
+                        <td><span th:text="${cate.CateId}"></span></td>
+<!--                        <td><img th:src="'/img/userImage/'+${user.UserTouxiang}"></td>-->
+                        <td><span th:text="${cate.CateName}"></span></td>
+
                         <td>
-                            <button><a th:href="'/upUser?id='+${user.UserId}">修改</a></button>
-                            <button><a th:href="'/deleteByUserIdKey?id='+${user.UserId}">删除</a></button>
+                            <button><a th:href="'/upCate?id='+${cate.CateId}">修改</a></button>
+                            <button><a th:href="'/deleteByCateIdKey?id='+${cate.CateId}">删除</a></button>
                         </td>
                     </tr>
                     <script>
@@ -186,15 +174,6 @@
                         		}
                         	</script>
                 </table>
-
-                <div class="list-page">
-
-                    共 <span th:text="${pageInfo.total}"> </span>条记录，当前<span th:text="${pageInfo.pageNum}"></span>页
-                    <a href="http://localhost:8085/getAllPerson?pageNum=1&pageSize=10">首页</a>
-                    <a th:href="'http://localhost:8085/getAllPerson?pageNum='+(${pageInfo.pageNum}-1)+'&pageSize=10'">上一页</a>
-                    <a th:href="'http://localhost:8085/getAllPerson?pageNum='+(${pageInfo.pageNum}+1)+'&pageSize=10'">下一页</a>
-                    <a th:href="'http://localhost:8085/getAllPerson?pageNum='+${pageInfo.pages}+'&pageSize=10'">尾页</a>
-                </div>
             </div>
         </form>
     </div>

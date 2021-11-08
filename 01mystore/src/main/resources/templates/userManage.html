@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>后台管理</title>
+    <link rel="stylesheet" type="text/css" href="css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="css/main.css"/>
+    <script src="js/jquery-1.12.2.js"></script>
+
+</head>
+
+<body>
+<div class="topbar-wrap white">
+    <div class="topbar-inner clearfix">
+        <div class="topbar-logo-wrap clearfix">
+            <h1 class="topbar-logo none"><a href="/MonkeyShop/manage/admin_index.jsp" class="navbar-brand">后台管理</a></h1>
+            <ul class="navbar-list clearfix">
+                <li><a th:href="/index">首页</a></li>
+                <li><a href="/index" target="_blank">网站首页</a></li>
+            </ul>
+        </div>
+        <div class="top-info-wrap">
+            <ul class="top-info-list clearfix">
+<!--                <li><a href="#">管理员</a></li>-->
+<!--                <li><a href="#">修改密码</a></li>-->
+<!--                <li><a href="/MonkeyShop3/manage/admin_logout">退出</a></li>-->
+                <!--                                <span th:if="${isLogin} == 1">登录</span>-->
+                <if th:if="${session.isLogin} !=1">
+                    <li >
+                        <a href="/login">登录</a>
+                    </li>
+                </if>
+                <if th:if="${session.isLogin} ==1">
+                    <li style="width:100%;height:100%;">
+                        <!--                                        <div th:each="user,userStat:${user}">-->
+                        <a th:href="'upUser?id='+${session.user.UserId}"><img th:src="'/img/userImage/'+${session.user.UserTouxiang} " style="height:40px;width:40px;margin:0 0;"></a>
+                        <a th:text="${session.user.UserName}"></a>
+                        <a href="/layout">退出</a>
+<!--                        <a href="/getAllPerson">进入后台</a>-->
+                    </li>
+                </if>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container clearfix">
+    <div class="sidebar-wrap">
+        <div class="sidebar-title">
+            <h1>菜单</h1>
+        </div>
+        <div class="sidebar-content">
+            <ul class="sidebar-list">
+                <li>
+                    <a href="#"><i class="icon-font">&#xe003;</i>常用操作</a>
+                    <ul class="sub-menu">
+                        <li><a href="/MonkeyShop3/manage/admin_douserselect?cp=1"><i class="icon_font">&#xe008;</i>【用户管理】</a></li>
+                        <li><a href="/MonkeyShop3/manage/admin_cateselect"><i class="icon_font">&#xe005;</i>【分类管理】</a></li>
+                        <li><a href="/MonkeyShop3/manage/admin_doproductselect"><i class="icon_font">&#xe006;</i>【商品管理】</a></li>
+                        <li><a href="admin_order.jsp"><i class="icon_font">&#xe004;</i>订单管理</a></li>
+                        <li><a href="admin_message.jsp"><i class="icon_font">&#xe012;</i>留言管理</a></li>
+                        <li><a href="admin_new.jsp"><i class="icon_font">&#xe052;</i>新闻管理</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="icon-font">&#xe018;</i>系统管理</a>
+                    <ul class="sub-menu">
+                        <li><a href="system.html"><i class="icon-font">&#xe017;</i>系统设置</a></li>
+                        <li><a href="system.html"><i class="icon-font">&#xe037;</i>清理缓存</a></li>
+                        <li><a href="system.html"><i class="icon-font">&#xe046;</i>数据备份</a></li>
+                        <li><a href="system.html"><i class="icon-font">&#xe045;</i>数据还原</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+    <!--/sidebar-->
+    <span th:="text" valu="${userList1}"></span>
+
+</body>
+
+</html>

@@ -82,33 +82,28 @@
 </head>
 <body>
 <div class="a">
-    <h1>修改页面</h1>
-    <form action="/upDateUser" method="post" enctype="multipart/form-data">
+    <h1>修改商品</h1>
+    <form action="/updateByPrimaryKeySelective">
 
         <table class="table  table-striped" border="1" cellspacing="0" cellpadding="0">
 
-            <tr th:each="user,userStat:${user}">
+            <tr th:each="product,productStat:${product}">
                 <!-- <input name="userId" th:value="${user.UserId}"  readonly="true" /><br> -->
                 <!--                姓名:<input name="userId" /><br>-->
                 <div class="s">
-
-                    <div id="containner" class="touxiang">
-                        用户ID:<input name="userId" th:value="${user.UserId}"/><br
-                        <p>头像：</p>
-                        <img th:src="'/img/userImage/'+${user.UserTouxiang}">
-                        
-                        <input name="file" type="file"  id="imgFile" onchange="previewFile() " style="width:100%"><br>
-                        <!--                    之后图像<img src="" height="200" alt="Image preview...">-->
-                    </div>
                     <div class="userTables">
-                        姓名:<input name="userName" th:value="${user.UserName}"/><br>
-                        密码:<input name="userPassword" th:value="${user.UserPassword}"/><br>
-                        性别:<span><input type="radio" style="width:15px; hight:15px;"  name="userSex" size="6" value="1"checked="checked"/>男
-                        <input type="radio" style="width:15px; hight:15px;"  name="userSex" value="2"/>女</span><br>
-                        年龄:<input name="userAge" th:value="${user.UserAge}"/><br>
-                        邮箱:<input name="userEmail" th:value="${user.UserEmail}"/><br>
-                        电话:<input name="userNumber" th:value="${user.UserNumber}"/><br>
-                        地址:<input name="userAddressId" th:value="${user.UserAddressId}"/><br>
+                        商品id:<input name="productId" th:value="${product.ProductId}"><br>
+                        名字:<input name="productName"th:value="${product.ProductName}"><br>
+                        父类商品分类:<input name="productCid" th:value="${product.ProductCid}"/><br>
+                        子类商品分类:<input name="productFid" th:value="${product.ProductFid}"/><br>
+                        标签:<input name="productBiaoqian" th:value="${product.ProductBiaoqian}"/><br>
+                        详情描述:<input name="productDetail" th:value="${product.ProductDetail}"/><br>
+                        图片:<input name="productTupian" th:value="${product.ProductTupian}"/><br>
+                        库存:<input name="productNumber" th:value="${product.ProductNumber}"/><br>
+                        价格:<input name="productPrice" th:value="${product.ProductPrice}"/><br>
+                        地址:<input name="productAddress"th:value="${product.ProductAddress}"/><br>
+                        快递:<input name="productKuaidi"th:value="${product.ProductKuaidi}"/><br>
+                        卖家ID:<input name="sellerId"th:value="${product.SellerId}"/><br>
                     </div>
                 </div>
             </tr>

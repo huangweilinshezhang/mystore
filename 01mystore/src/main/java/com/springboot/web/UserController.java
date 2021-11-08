@@ -126,56 +126,19 @@ public class UserController {
     }
     //查看用户列表http://localhost:8085/userList
     @RequestMapping(value="/userList")
-    public @ResponseBody ModelAndView userList(Model model){
+    public @ResponseBody ModelAndView userList(Model model,Integer pageNum,Integer pageSize){
         ModelAndView mv=new ModelAndView();
         List<User> userList=new ArrayList<>();
-        Integer userNumber=userServervice.queryUserNumber();
-        System.out.println("userNumber:"+userNumber);
-//        User user=userServervice.selectUserList();
-        for(int i=0;i<userNumber;i++){
-            User user=new User();
-            User user1=userServervice.selectUserByIdTo(i+1);
-            user.setUserId(user1.getUserId());
-            user.setUserName(user1.getUserName());
-            user.setUserAge(user1.getUserAge());
-            user.setUserTouxiang(user1.getUserTouxiang());
-            user.setUserAddressId(user1.getUserAddressId());
-            user.setUserEmail(user1.getUserEmail());
-            user.setUserNumber(user1.getUserNumber());
-            user.setUserPassword(user1.getUserPassword());
-            user.setUserSex(user1.getUserSex());
-
-            System.out.println("i:"+i+user.getUserId()+user.getUserName()+user.getUserTouxiang()
-            );
-            userList.add(user);
-            System.out.println(user);
-        }
+//        Integer userNumber=userServervice.queryUserNumber();
+//        System.out.println("userNumber:"+userNumber);
+        User user=userServervice.selectUserList(pageNum,pageSize);
+        userList.add(user);
         System.out.println(userList);
 //        model.addAttribute("userList",userList);
         mv.addObject("userList",userList);
         mv.setViewName("userList.html");
         return mv;//返回结果给前端页面
     }
-//    @RequestMapping(value="/findAll")
-////    @GetMapping(value="/findAll")
-//    public Object findAll() {
-//        return userServervice.findAll();
-//    }
-//
-//    @PostMapping(value="/findPage")
-////    @RequestMapping(value="/findAll",method = RequestMethod.POST)
-//    public Object findPage(@RequestBody PageRequest pageQuery) {
-//        return userServervice.findPage(pageQuery);
-//    }
-//
-//    @GetMapping("/getAllPerson")
-//    public String getAllPerson(Model model,@RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum){
-//        PageHelper.startPage(pageNum,5);
-//        List<User> list = userServervice.getAllPerson();
-//        PageInfo<User> pageInfo = new PageInfo<User>(list);
-//        model.addAttribute("pageInfo",pageInfo);
-//        return "userList.html";
-//    }
 
     //根据id删除用户
     @RequestMapping(value = "/deleteByUserIdKey")
@@ -217,7 +180,7 @@ public class UserController {
     private String filePath;
     //根据用户id修改用户数据
     @RequestMapping(value = "/upDateUser",method = RequestMethod.POST)
-    public ModelAndView upDateUser(Model model,Integer userId,MultipartFile file,String userName,String userPassword,Integer userAge,String userEmail,Integer userSex,Integer userNumber,Integer userAddressId){
+    public ModelAndView upDateUser(Integer userId,MultipartFile file,String userName,String userPassword,Integer userAge,String userEmail,Integer userSex,Integer userNumber,Integer userAddressId){
         ModelAndView mv=new ModelAndView();
 //        User user=new User();
         String extName=file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
@@ -226,6 +189,7 @@ public class UserController {
         String imgName=file.getOriginalFilename();
         String moren="3.jpg";
         System.out.println("imgName："+imgName);
+        System.out.println("userId："+userId);
 
         //判断是否为默认图像
         if(imgName.compareTo(moren)==0){
@@ -237,8 +201,12 @@ public class UserController {
         }else{
             System.out.println("不是默认图片");
             User user1=userServervice.selectUserByIdTo(userId);
+            System.out.println(user1);
+
             //删除文件夹中的图片
-            File file1=new File(filePath+user1.getUserTouxiang());
+            String oldImg=user1.getUserTouxiang();
+            System.out.println("file1:路径"+filePath+oldImg);
+            File file1=new File(filePath+oldImg);
             System.out.println("file1:路径"+filePath+user1.getUserTouxiang());
             file1.delete();
             System.out.println("原本用户头像图片删除成功:"+user1.getUserTouxiang());
@@ -257,7 +225,7 @@ public class UserController {
 
 
         userServervice.updateByPrimaryKey(userId,userTouxiang,userName,userPassword,userAge,userEmail,userSex,userNumber,userAddressId);
-       model.addAttribute("updateByPrimaryKey","修改成功");
+//       model.addAttribute("updateByPrimaryKey","修改成功");
         mv.setViewName("upDateUser.html");
         return mv;
     }

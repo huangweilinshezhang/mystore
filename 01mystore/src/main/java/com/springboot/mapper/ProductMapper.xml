@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springboot.mapper.ProductMapper">
+  <resultMap id="BaseResultMap" type="com.springboot.model.Product">
+    <id column="product_id" jdbcType="INTEGER" property="productId" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="product_cid" jdbcType="INTEGER" property="productCid" />
+    <result column="product_fid" jdbcType="INTEGER" property="productFid" />
+    <result column="product_biaoqian" jdbcType="VARCHAR" property="productBiaoqian" />
+    <result column="product_detail" jdbcType="VARCHAR" property="productDetail" />
+    <result column="product_tupian" jdbcType="INTEGER" property="productTupian" />
+    <result column="product_number" jdbcType="INTEGER" property="productNumber" />
+    <result column="product_price" jdbcType="INTEGER" property="productPrice" />
+    <result column="product_address" jdbcType="VARCHAR" property="productAddress" />
+    <result column="product_kuaidi" jdbcType="VARCHAR" property="productKuaidi" />
+    <result column="seller_id" jdbcType="INTEGER" property="sellerId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    product_id, seller_id, product_name, product_cid, product_fid, product_biaoqian,
+    product_detail, product_tupian, product_number, product_price, product_address, product_kuaidi
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="com.springboot.model.Product" resultMap="BaseResultMap">
+    select
+    *
+    from product
+    where product_id = #{productId,jdbcType=INTEGER}
+  </select>
+
+  <select id="getAllProduct" resultMap="BaseResultMap">
+    select
+    *
+    from product
+  </select>
+<!--  //        select distinct product_fid from proudct-->
+<!--  //        select distinct product_cid from proudct-->
+  <select id="selectFid" resultType="java.lang.String">
+    select distinct product_fid from product
+  </select>
+  <select id="selectCid" resultType="java.lang.String">
+    select distinct product_cid from product
+  </select>
+
+  <delete id="deleteByPrimaryKey">
+    delete from product
+    where product_id = #{productId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="productAdd" parameterType="com.springboot.model.Product">
+    insert into product (seller_id, product_name,
+      product_cid, product_fid, product_biaoqian,
+      product_detail, product_tupian, product_number,
+      product_price, product_address, product_kuaidi
+      )
+    values (#{sellerId,jdbcType=INTEGER}, #{productName,jdbcType=VARCHAR},
+      #{productCid,jdbcType=INTEGER}, #{productFid,jdbcType=INTEGER}, #{productBiaoqian,jdbcType=VARCHAR},
+      #{productDetail,jdbcType=VARCHAR}, #{productTupian,jdbcType=INTEGER}, #{productNumber,jdbcType=INTEGER},
+      #{productPrice,jdbcType=INTEGER}, #{productAddress,jdbcType=VARCHAR}, #{productKuaidi,jdbcType=VARCHAR}
+      )
+  </insert>
+<!--  <insert id="insertSelective" parameterType="com.springboot.model.Product">-->
+<!--    insert into product-->
+<!--    <trim prefix="(" suffix=")" suffixOverrides=",">-->
+<!--      <if test="productId != null">-->
+<!--        product_id,-->
+<!--      </if>-->
+<!--      <if test="sellerId != null">-->
+<!--        seller_id,-->
+<!--      </if>-->
+<!--      <if test="productName != null">-->
+<!--        product_name,-->
+<!--      </if>-->
+<!--      <if test="productCid != null">-->
+<!--        product_cid,-->
+<!--      </if>-->
+<!--      <if test="productFid != null">-->
+<!--        product_fid,-->
+<!--      </if>-->
+<!--      <if test="productBiaoqian != null">-->
+<!--        product_biaoqian,-->
+<!--      </if>-->
+<!--      <if test="productDetail != null">-->
+<!--        product_detail,-->
+<!--      </if>-->
+<!--      <if test="productTupian != null">-->
+<!--        product_tupian,-->
+<!--      </if>-->
+<!--      <if test="productNumber != null">-->
+<!--        product_number,-->
+<!--      </if>-->
+<!--      <if test="productPrice != null">-->
+<!--        product_price,-->
+<!--      </if>-->
+<!--      <if test="productAddress != null">-->
+<!--        product_address,-->
+<!--      </if>-->
+<!--      <if test="productKuaidi != null">-->
+<!--        product_kuaidi,-->
+<!--      </if>-->
+<!--    </trim>-->
+<!--    <trim prefix="values (" suffix=")" suffixOverrides=",">-->
+<!--      <if test="productId != null">-->
+<!--        #{productId,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="sellerId != null">-->
+<!--        #{sellerId,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="productName != null">-->
+<!--        #{productName,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="productCid != null">-->
+<!--        #{productCid,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="productFid != null">-->
+<!--        #{productFid,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="productBiaoqian != null">-->
+<!--        #{productBiaoqian,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="productDetail != null">-->
+<!--        #{productDetail,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="productTupian != null">-->
+<!--        #{productTupian,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="productNumber != null">-->
+<!--        #{productNumber,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="productPrice != null">-->
+<!--        #{productPrice,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="productAddress != null">-->
+<!--        #{productAddress,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="productKuaidi != null">-->
+<!--        #{productKuaidi,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--    </trim>-->
+<!--  </insert>-->
+  <update id="updateByPrimaryKeySelective" parameterType="com.springboot.model.Product">
+    update product
+    <set>
+      <if test="productName != null">
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productCid != null">
+        product_cid = #{productCid,jdbcType=INTEGER},
+      </if>
+      <if test="productFid != null">
+        product_fid = #{productFid,jdbcType=INTEGER},
+      </if>
+      <if test="productBiaoqian != null">
+        product_biaoqian = #{productBiaoqian,jdbcType=VARCHAR},
+      </if>
+      <if test="productDetail != null">
+        product_detail = #{productDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="productTupian != null">
+        product_tupian = #{productTupian,jdbcType=INTEGER},
+      </if>
+      <if test="productNumber != null">
+        product_number = #{productNumber,jdbcType=INTEGER},
+      </if>
+      <if test="productPrice != null">
+        product_price = #{productPrice,jdbcType=INTEGER},
+      </if>
+      <if test="productAddress != null">
+        product_address = #{productAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="productKuaidi != null">
+        product_kuaidi = #{productKuaidi,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerId != null">
+        seller_id = #{sellerId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where product_id = #{productId,jdbcType=INTEGER}
+  </update>
+<!--  <update id="updateByPrimaryKey" parameterType="com.springboot.model.Product">-->
+<!--    update product-->
+<!--    set product_name = #{productName,jdbcType=VARCHAR},-->
+<!--      product_cid = #{productCid,jdbcType=INTEGER},-->
+<!--      product_fid = #{productFid,jdbcType=INTEGER},-->
+<!--      product_biaoqian = #{productBiaoqian,jdbcType=VARCHAR},-->
+<!--      product_detail = #{productDetail,jdbcType=VARCHAR},-->
+<!--      product_tupian = #{productTupian,jdbcType=INTEGER},-->
+<!--      product_number = #{productNumber,jdbcType=INTEGER},-->
+<!--      product_price = #{productPrice,jdbcType=INTEGER},-->
+<!--      product_address = #{productAddress,jdbcType=VARCHAR},-->
+<!--      product_kuaidi = #{productKuaidi,jdbcType=VARCHAR}-->
+<!--    where product_id = #{productId,jdbcType=INTEGER}-->
+<!--      and seller_id = #{sellerId,jdbcType=INTEGER}-->
+<!--  </update>-->
+</mapper>
