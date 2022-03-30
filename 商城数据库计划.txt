@@ -1,0 +1,105 @@
+【用户】
+id
+密码
+头像
+名字
+年龄
+邮箱
+性别
+电话
+地址
+
+【用户收获地址】
+用户id
+收货人：名字
+收货人：电话
+收货人：地址
+是否默认收货地址状态
+
+【商家】
+商家id
+密码
+头像
+名字
+年龄
+邮箱
+性别
+
+
+【商家发获地址】
+商家id
+发货人：名字
+发货人：电话
+发货人：地址
+是否默认发货地址状态
+
+权限
+
+【商品】
+商品id
+商家id
+名字
+商品父类标签
+商品子类标签
+文字介绍详情
+图片（图片id使用商品图片数据表中的id，创建图片数据表，根据卖家id和图片id来判断商品，并且获取）
+	-大概4张详情，13张产品讲解
+
+库存number
+价格
+地址
+快递
+评价
+
+【商品图片】
+id（图片id）
+userId（卖家id）
+img_number（图片名称）
+public class ProductImage {
+    private Integer userId;
+    private String  imgNumber;
+    private Integer imgId;
+
+【收藏】
+用户id
+收藏商品id
+
+
+【购物车】
+用户id
+商品id
+商家id
+
+【订单】
+订单id
+状态stats
+时间
+商家
+商品id
+商品数量number
+快递_id
+添加评价evaluate
+
+增加购物车增减服务
+用户结算之后进入订单支付界面（传入用户id，根绝id查询购物车情况），支付成功，则清空购物车
+并且在商品页面进行数量减少
+
+order_id 产品id
+user_id 用户id
+product_id 产品ID
+product_number 产品数量
+express_id 物流id
+total 	共计多少钱
+evaluate 添加评价
+order_time 订单开始时间
+order_state 订单状态
+
+
+【快递】
+快递_id
+快递公司
+状态
+	时间，地点，人物
+路线
+
+
