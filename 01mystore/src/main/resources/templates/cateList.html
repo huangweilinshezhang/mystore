@@ -141,15 +141,16 @@
             <div class="result-title">
                 <div class="result-list">
                     <a href="/cateAdd"><i class="icon-font"></i>新增分类</a>
-                    <a id="batchDel" href="javascript:delmore('你确定要批量删除用户么?', 'myform')"><i class="icon-font"></i>批量删除</a>
+                    <a id="batchDel" href="javascript:delmore('你确定要批量删除此分类么?', 'myform')"><i class="icon-font"></i>批量删除分类</a>
                     <!-- <a id="updateOrd" href="javascript:void(0)"><i class="icon-font"></i>更新排序</a> -->
                 </div>
             </div>
             <div class="result-content">
                 <table class="result-tab" width="100%">
                     <tr>
-                        <th>分类ID（分类id作为MySQL主键不可改）</th>
+                        <th>ID（分类id作为MySQL主键不可改）</th>
                         <th>分类名字</th>
+                        <th>分类父ID</th>
                         <th>操作</th>
                     </tr>
                     <tr th:each="cate,cateStat:${pageInfo.list}">
@@ -157,11 +158,28 @@
 <!--                        <td><span th:text="${userStat.index}"></span></td>-->
                         <td><span th:text="${cate.CateId}"></span></td>
 <!--                        <td><img th:src="'/img/userImage/'+${user.UserTouxiang}"></td>-->
-                        <td><span th:text="${cate.CateName}"></span></td>
+<!--                        <if th:if="${session.isLogin} !=1">
+                                            <li >
+                                                <a href="/login">登录</a>
+                                            </li>
+                            </if>
+-->
+                        <td>
+                            <if th:if="${cate.CateParentId}!=0">
+<!--                                现在已经能判断前端的显示空格，现在应该搞定，
+                                    根据需求先显示一级目录，再根据一级目录显示二级目录的问题，
+                                    应该设置两个数组分别存放一级和二级的目录关系。-->
+                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;——</span>
+                            </if>
+
+                            【<span th:text="${cate.CateName}"></span>】
+                        </td>
+                        <td><span th:text="${cate.CateParentId}"></span></td>
+<!--                        cate_parent_id-->
 
                         <td>
                             <button><a th:href="'/upCate?id='+${cate.CateId}">修改</a></button>
-                            <button><a th:href="'/deleteByCateIdKey?id='+${cate.CateId}">删除</a></button>
+                            <button><a th:href="'/deleteByCateIdKey?cateId='+${cate.CateId}">删除</a></button>
                         </td>
                     </tr>
                     <script>

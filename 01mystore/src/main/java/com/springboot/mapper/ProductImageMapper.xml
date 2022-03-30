@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springboot.mapper.ProductImageMapper">
+  <resultMap id="BaseResultMap" type="com.springboot.model.ProductImage">
+    <id column="img_id" jdbcType="INTEGER" property="imgId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="img_number" jdbcType="VARCHAR" property="imgNumber" />
+    <result column="product_id" jdbcType="INTEGER" property="productId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    img_id, user_id, img_number, product_id
+  </sql>
+<!--  根据产品id和用户id查询商品信息-->
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select *
+    from product_img
+    where product_id = #{productId,jdbcType=INTEGER} and
+    user_id=#{sellerId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from product_img
+    where product_id = #{productId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.springboot.model.ProductImage">
+    insert into product_img (img_id, user_id, img_number, 
+      product_id)
+    values (#{imgId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{imgNumber,jdbcType=VARCHAR}, 
+      #{productId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.springboot.model.ProductImage">
+    insert into product_img
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="imgId != null">
+        img_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="imgNumber != null">
+        img_number,
+      </if>
+      <if test="productId != null">
+        product_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="imgId != null">
+        #{imgId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="imgNumber != null">
+        #{imgNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.springboot.model.ProductImage">
+    update product_img
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="imgNumber != null">
+        img_number = #{imgNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        product_id = #{productId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where img_id = #{imgId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.springboot.model.ProductImage">
+    update product_img
+    set user_id = #{userId,jdbcType=INTEGER},
+      img_number = #{imgNumber,jdbcType=VARCHAR},
+      product_id = #{productId,jdbcType=INTEGER}
+    where img_id = #{imgId,jdbcType=INTEGER}
+  </update>
+  <update id="updateBySellerAndProductId" parameterType="com.springboot.model.ProductImage">
+    update product_img
+    set img_number = #{imgNumber,jdbcType=VARCHAR}
+    where user_id = #{sellerId,jdbcType=INTEGER} and product_id = #{productId,jdbcType=INTEGER} and img_id = #{imgId,jdbcType=INTEGER}
+  </update>
+<!--  自定义产品图片操作的开始-->
+<!--  根据id查询全部图片信息-->
+    <select id="selectImgByPrimaryKey" resultType="java.lang.Integer" resultMap="BaseResultMap">
+      select  * from product_img where product_id = #{productId,jdbcType=INTEGER} and
+      user_id=#{sellerId,jdbcType=INTEGER}
+    </select>
+  <!--  这是添加产品图片的-->
+<!--  insert into product_img user_id,img_number,product_id values 1,7341456a-6636-4793-a1f0-ad0481677624.jpg,72;-->
+    <insert id="productImgAdd" parameterType="com.springboot.model.ProductImage">
+      insert into product_img (user_id,product_id,img_number)
+      values (#{sellerId,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, #{fileName,jdbcType=VARCHAR})
+    </insert>
+</mapper>

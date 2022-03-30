@@ -4,6 +4,187 @@
     <meta charset="UTF-8">
     <title>login.html</title>
     <script src="js/jquery-1.12.2.js"></script>
+    <script>
+	function fun1(){
+	var clist=document.getElementById("clist");
+    var a = $('select  option:selected').val();
+    var gsontext;
+    clist.style.display="";//这是显示出来
+            clist.options.length=0;
+	    console.log("这是一个函数"+a);
+	    <!--	接受到了来自一级菜单的父类id，暂时命名为a-->
+    if(a!=0){
+          //现在应该根据fid使用Ajax异步更新
+          $.ajax({
+            async:false,    // 这个需要写上
+            type:"get",
+            url:"/getCList?a="+a,
+                        //成功的回调方法
+            success:function (data) {
+            //data为返回值
+            var jsonData = JSON.stringify(data);
+            var obj = JSON.parse(jsonData);
+<!--            console.log("jsonData："+obj[0].cateId);-->
+            console.log("obj.length："+obj.length);
+
+
+            for (var i = 0; i < obj.length; i++) {
+                //result[i]表示获得第i个json对象即JSONObject
+                //result[i]通过.字段名称即可获得指定字段的值
+                var newoption;
+                newoption=new Option();
+                newoption.text=obj[i].cateName;
+                newoption.value=obj[i].cateId;
+                newoption.name=obj[i].cateName;
+                clist.options.add(newoption);
+                }
+            }
+          });
+    }else{
+        clist.options.length=0;
+          var newoption;
+          newoption=new Option(0);
+          newoption.name=productCid;
+          newoption.text=0;
+          newoption.value=0;
+           clist.options.add(newoption);
+        console.log("只有一级菜单");
+    }
+
+	}
+	function fun2(){
+    console.log("进入到了第二个函数");
+    var clist=document.getElementById("clist");
+    console.log("进入到了第二个函数",clist);
+    }
+
+</script>
+    <script type="text/javascript">
+
+    var curFiles = [];//文件数组，用来保存上传的文件信息
+    //检查上传的图片
+    function checkImage(obj) {
+        var files = obj.files;
+        console.log("files.length"+files.length);
+        if(files){
+            if(files.length <= 3) {//把一次上传图片数限制在3张
+                for (var i = 0; i < files.length; i++) {
+                    var item = files.item(i);
+                    console.log('files.item(i)',files.item(i))
+                    var size = item.size;
+                    if (size / 1000 < 10000) { //简易大小限制100K
+                        curFiles.push(item);
+                    }
+                    else {
+                        alert("第" + (i + 1) + "张图片过大");
+                    }
+                }
+            }
+            else{
+                $("#filename").val("");
+                alert("一次最多上传3张图片");
+            }
+        }
+        else {
+            $("#filename").val("");
+            alert("请选择上传文件");
+        }
+
+        //去除文件名相同的情况（上传列表中多次出现同一个文件）
+        for (var i = 0; i < curFiles.length - 1; i++) {
+            for (var j = 1; j < curFiles.length; j++) {
+                if (i != j) {
+                    if (curFiles[i].name == curFiles[j].name) {
+                        curFiles.splice(j, 1)
+                    }
+                }
+            }
+        }
+
+        //判断上传图片大小(100KB)
+        for(var i = 0; i < curFiles.length; i++){
+            var size = curFiles[i].size;
+            if(size/1000>10000){
+                curFiles.splice(i, 1);
+            }
+
+        }
+
+        console.log("curFiles:"+curFiles);
+
+        onLoadImage();
+    }
+
+    //预览图片
+    function onLoadImage() {
+        $("#onLoadImage").html("");
+        for(var i = 0; i < curFiles.length; i++){
+            (function(i){
+                var file = curFiles[i];
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function(){
+                    $('#onLoadImage').append("<img src='"+reader.result+"'style='width:150px;height:100px;'/><span><span>"+file.name+"</span><button id='"+i+"' onclick='del(this.id)'>删除</button></span><br>");
+                }
+            })(i)
+        }
+    }
+
+    //删除功能
+    function del(id) {
+        var name = $("#"+id).prev().text();
+        console.log(name);
+        curFiles = curFiles.filter(function(file) {
+            return file.name !== name;
+        });
+        console.log("curFiles:"+curFiles);
+        onLoadImage();
+    }
+    //上传功能的实现，暂未使用
+    function checkSubmit() {
+        if(curFiles.length>0){
+            var formdata =  new FormData();
+            var formdata2=new FormData($("#form")[0]);//
+            console.log("formdata2:"+formdata2);
+            for (var i = 0; i<curFiles.length; i++) {
+                formdata.append('uploadFiles', curFiles[i]);
+                console.log("curFiles[i]:"+typeof(curFiles[i]));
+            }
+
+            //curFiles[i]，明显后台不能识别出他是否是文件multipart
+            console.log("formdata:"+formdata);
+            $.ajax({
+                async:false,
+                url: '/multipleImageUpload',
+                type: 'POST',
+                data: formdata2,
+                cache:false,
+                dataType:'json',
+                contentType: false,
+                // 告诉jQuery不要去设置Content-Type请求头
+                processData: false,
+                // 告诉jQuery不要去处理发送的数据
+                success: function(data) {
+                    alert(data.length+"个上传结果");
+                    for(var k in data){
+                        var num=Number(k)+1;
+                        alert("第"+num+"张上传结果："+data[k].result_msg);
+                        if(data[k].hasOwnProperty("relativePath"))
+                            alert("第"+num+"张相对路径："+data[k].relativePath);
+                    }
+                },
+                error: function(err) {
+                    alert("上传失败");
+                }
+<!--                return;-->
+            });
+        }
+        else{
+            alert("请选择文件后上传");
+        }
+    }
+
+</script>
     <style>
     input[type="submit" i] {
 	/* margin-right: 0%; */
@@ -83,7 +264,7 @@
 <body>
 <div class="a">
     <h1>修改商品</h1>
-    <form action="/updateByPrimaryKeySelective">
+    <form action="/updateByPrimaryKeySelective" method="post" enctype="multipart/form-data">
 
         <table class="table  table-striped" border="1" cellspacing="0" cellpadding="0">
 
@@ -94,11 +275,32 @@
                     <div class="userTables">
                         商品id:<input name="productId" th:value="${product.ProductId}"><br>
                         名字:<input name="productName"th:value="${product.ProductName}"><br>
-                        父类商品分类:<input name="productCid" th:value="${product.ProductCid}"/><br>
-                        子类商品分类:<input name="productFid" th:value="${product.ProductFid}"/><br>
+                        <select name="productFid"id="flist2" class="common-text required" onchange="fun1()">
+                            <option >请选择你的商品类目</option>
+                            <option th:each="clist,flistStat:${session.listCateFid}" th:value="${clist.CateId}">
+                                <if th:if="${clist.CateId}">
+                                    <a th:text="${clist.CateName}"  th:value="${clist.CateParentId}"></a>
+                                </if>
+                            </option>
+                        </select>
+                        <select name="productCid" id="clist" class="common-text required" onchange="fun2()">
+                            <option></option>
+                        </select>
+                        <br>
                         标签:<input name="productBiaoqian" th:value="${product.ProductBiaoqian}"/><br>
                         详情描述:<input name="productDetail" th:value="${product.ProductDetail}"/><br>
-                        图片:<input name="productTupian" th:value="${product.ProductTupian}"/><br>
+                        图片（现存）:
+<!--                        <input name="productTupian" th:value="${product.ProductTupian}"/>-->
+                        <div th:each="img,imgStat:${session.FinishPImglist}" style="margin-left:0%;width:100%;">
+                            <img th:src="'/img/productImage/'+${img.ImgNumber}" style="width:150px;height:100px;"/>
+                        </div>
+                        <div style="margin-left:0%;width:100%;" name="form" id="form">
+<!--                                        <form  action="/multipleImageUpload"  style="margin-left:0%;width:100%;"></form>-->
+                            <input type="file" name="file" id="filename" accept="image/png, image/jpeg, image/jpg" multiple="multiple" onchange="checkImage(this)">
+                                <div id="onLoadImage" style="margin-left:0%;width:100%;"></div>
+<!--                            <input type="submit" id="submitBtn" value="上传"/>-->
+                        </div><br>
+                        <p>修改图片选择文件</p><br>
                         库存:<input name="productNumber" th:value="${product.ProductNumber}"/><br>
                         价格:<input name="productPrice" th:value="${product.ProductPrice}"/><br>
                         地址:<input name="productAddress"th:value="${product.ProductAddress}"/><br>

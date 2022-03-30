@@ -12,11 +12,8 @@ import java.util.List;
 @Service
 public class ProductServiceImpl implements ProductService {
     @Autowired
-//    private UserMapper userMapper;
     private ProductMapper productMapper;
     private Product product;
-
-
     @Override
     public List<Product> getAllProduct(Integer pageNum,Integer pageSize) {
         PageHelper.startPage(pageNum,pageSize);
@@ -41,8 +38,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void updateByPrimaryKeySelective(Integer productId, String productName, Integer productCid, Integer productFid, String productBiaoqian, String productDetail, Integer productTupian, Integer productNumber, Integer productPrice, String productAddress, String productKuaidi, Integer sellerId) {
-        productMapper.updateByPrimaryKeySelective(productId, productName, productCid, productFid, productBiaoqian, productDetail, productTupian,
+    public void updateByPrimaryKeySelective(Integer productId, String productName, Integer productCid, Integer productFid, String productBiaoqian,
+                                            String productDetail, Integer productNumber, Integer productPrice, String productAddress, String productKuaidi, Integer sellerId) {
+        productMapper.updateByPrimaryKeySelective(productId, productName, productCid, productFid, productBiaoqian, productDetail,
                 productNumber, productPrice, productAddress, productKuaidi, sellerId);
     }
 
@@ -55,5 +53,16 @@ public class ProductServiceImpl implements ProductService {
     public List selectCid() {
         return productMapper.selectCid();
     }
+
+    @Override
+    public int selectProductIdBysellerAndProductTuPian(Integer sellerId, int productTupian) {
+        return productMapper.selectProductIdBysellerAndProductTuPian(sellerId,productTupian);
+    }
+
+    @Override
+    public void updateTupianByProId(int yuliuId) {
+        productMapper.updateTupianByProId(yuliuId);
+    }
+
 
 }

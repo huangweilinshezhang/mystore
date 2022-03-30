@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/pagination.css}">
+    <script src="/js/jquery-1.12.2.js"></script>
+    <script th:src="@{/js/jquery.pagination.js}"></script>
+    <link rel="stylesheet" type="text/css" href="css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="css/main.css"/>
+</head>
+<body>
+<table>
+    <td>
+        <div th:each="img,imgStat:${session.FinishPImglist}">
+            <img th:src="'/img/productImage/'+${img.ImgNumber}"/>
+
+        </div>
+        <br>
+    </td>
+</table>
+</body>
+</html>

@@ -7,3 +7,10 @@ pagehelper:
 servlet:
   session:
     timeout: 10
+
+    #设置不参加热部署的文件
+spring:
+  devtools:
+    restart:
+      exclude: public/**
+      enabled: false

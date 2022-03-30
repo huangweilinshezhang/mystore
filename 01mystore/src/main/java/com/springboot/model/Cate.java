@@ -1,10 +1,7 @@
 package com.springboot.model;
-
 public class Cate {
     private Integer cateId;
-
     private String cateName;
-
     private Integer cateParentId;
 
     public Integer getCateId() {

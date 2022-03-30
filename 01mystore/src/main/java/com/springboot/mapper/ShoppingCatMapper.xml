@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springboot.mapper.ShoppingCatMapper">
+  <resultMap id="BaseResultMap" type="com.springboot.model.ShoppingCat">
+    <id column="shopping_id" jdbcType="INTEGER" property="shoppingId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="product_id" jdbcType="INTEGER" property="productId" />
+    <result column="seller_id" jdbcType="INTEGER" property="sellerId" />
+    <result column="product_number" jdbcType="INTEGER" property="productNumber" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    shopping_id, user_id, product_id, seller_id, product_number
+  </sql>
+<!--  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">-->
+<!--    select -->
+<!--    <include refid="Base_Column_List" />-->
+<!--    from shopping_cat-->
+<!--    where shopping_id = #{shoppingId,jdbcType=INTEGER}-->
+<!--  </select>-->
+  <select id="selectSellerId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    *
+    from shopping_cat
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+<!--  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">-->
+<!--    delete from shopping_cat-->
+<!--    where shopping_id = #{shoppingId,jdbcType=INTEGER}-->
+<!--  </delete>-->
+<!--  <insert id="insert" parameterType="com.springboot.model.ShoppingCat">-->
+<!--    insert into shopping_cat ( user_id, product_id,-->
+<!--      seller_id, product_number)-->
+<!--    values (#{sellerId,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER},-->
+<!--      #{sellerId,jdbcType=INTEGER}, #{productNumber,jdbcType=INTEGER})-->
+<!--  </insert>-->
+  <insert id="ShoppingCatAdd" parameterType="com.springboot.model.ShoppingCat">
+    insert into shopping_cat ( user_id, product_id,
+    seller_id, product_number)
+    values (#{userId,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER},
+    #{sellerId,jdbcType=INTEGER}, #{productNumber,jdbcType=INTEGER})
+  </insert>
+
+<!--  <insert id="insertSelective" parameterType="com.springboot.model.ShoppingCat">-->
+<!--    insert into shopping_cat-->
+<!--    <trim prefix="(" suffix=")" suffixOverrides=",">-->
+<!--      <if test="shoppingId != null">-->
+<!--        shopping_id,-->
+<!--      </if>-->
+<!--      <if test="userId != null">-->
+<!--        user_id,-->
+<!--      </if>-->
+<!--      <if test="productId != null">-->
+<!--        product_id,-->
+<!--      </if>-->
+<!--      <if test="sellerId != null">-->
+<!--        seller_id,-->
+<!--      </if>-->
+<!--      <if test="productNumber != null">-->
+<!--        product_number,-->
+<!--      </if>-->
+<!--    </trim>-->
+<!--    <trim prefix="values (" suffix=")" suffixOverrides=",">-->
+<!--      <if test="shoppingId != null">-->
+<!--        #{shoppingId,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="userId != null">-->
+<!--        #{userId,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="productId != null">-->
+<!--        #{productId,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="sellerId != null">-->
+<!--        #{sellerId,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="productNumber != null">-->
+<!--        #{productNumber,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--    </trim>-->
+<!--  </insert>-->
+<!--  <update id="updateByPrimaryKeySelective" parameterType="com.springboot.model.ShoppingCat">-->
+<!--    update shopping_cat-->
+<!--    <set>-->
+<!--      <if test="userId != null">-->
+<!--        user_id = #{userId,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="productId != null">-->
+<!--        product_id = #{productId,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="sellerId != null">-->
+<!--        seller_id = #{sellerId,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="productNumber != null">-->
+<!--        product_number = #{productNumber,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--    </set>-->
+<!--    where shopping_id = #{shoppingId,jdbcType=INTEGER}-->
+<!--  </update>-->
+<!--  <update id="updateByPrimaryKey" parameterType="com.springboot.model.ShoppingCat">-->
+<!--    update shopping_cat-->
+<!--    set user_id = #{userId,jdbcType=INTEGER},-->
+<!--      product_id = #{productId,jdbcType=INTEGER},-->
+<!--      seller_id = #{sellerId,jdbcType=INTEGER},-->
+<!--      product_number = #{productNumber,jdbcType=INTEGER}-->
+<!--    where shopping_id = #{shoppingId,jdbcType=INTEGER}-->
+<!--  </update>-->
+<!--  <resultMap id="BaseResultMap" type="com.springboot.model.ShoppingCat">-->
+<!--    <id column="shopping_id" jdbcType="INTEGER" property="shoppingId" />-->
+<!--    <result column="user_id" jdbcType="INTEGER" property="userId" />-->
+<!--    <result column="product_id" jdbcType="INTEGER" property="productId" />-->
+<!--    <result column="seller_id" jdbcType="INTEGER" property="sellerId" />-->
+<!--    <result column="product_number" jdbcType="INTEGER" property="productNumber" />-->
+<!--  </resultMap>-->
+<!--  <sql id="Base_Column_List">-->
+<!--    shopping_id, user_id, product_id, seller_id, product_number-->
+<!--  </sql>-->
+<!--  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">-->
+<!--    select -->
+<!--    <include refid="Base_Column_List" />-->
+<!--    from shopping_cat-->
+<!--    where shopping_id = #{shoppingId,jdbcType=INTEGER}-->
+<!--  </select>-->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from shopping_cat
+    where shopping_id = #{shoppingId,jdbcType=INTEGER}
+  </delete>
+<!--  <insert id="insert" parameterType="com.springboot.model.ShoppingCat">-->
+<!--    insert into shopping_cat (shopping_id, user_id, product_id, -->
+<!--      seller_id, product_number)-->
+<!--    values (#{shoppingId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, -->
+<!--      #{sellerId,jdbcType=INTEGER}, #{productNumber,jdbcType=INTEGER})-->
+<!--  </insert>-->
+<!--  <insert id="insertSelective" parameterType="com.springboot.model.ShoppingCat">-->
+<!--    insert into shopping_cat-->
+<!--    <trim prefix="(" suffix=")" suffixOverrides=",">-->
+<!--      <if test="shoppingId != null">-->
+<!--        shopping_id,-->
+<!--      </if>-->
+<!--      <if test="userId != null">-->
+<!--        user_id,-->
+<!--      </if>-->
+<!--      <if test="productId != null">-->
+<!--        product_id,-->
+<!--      </if>-->
+<!--      <if test="sellerId != null">-->
+<!--        seller_id,-->
+<!--      </if>-->
+<!--      <if test="productNumber != null">-->
+<!--        product_number,-->
+<!--      </if>-->
+<!--    </trim>-->
+<!--    <trim prefix="values (" suffix=")" suffixOverrides=",">-->
+<!--      <if test="shoppingId != null">-->
+<!--        #{shoppingId,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="userId != null">-->
+<!--        #{userId,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="productId != null">-->
+<!--        #{productId,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="sellerId != null">-->
+<!--        #{sellerId,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="productNumber != null">-->
+<!--        #{productNumber,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--    </trim>-->
+<!--  </insert>-->
+<!--  <update id="updateByPrimaryKeySelective" parameterType="com.springboot.model.ShoppingCat">-->
+<!--    update shopping_cat-->
+<!--    <set>-->
+<!--      <if test="userId != null">-->
+<!--        user_id = #{userId,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="productId != null">-->
+<!--        product_id = #{productId,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="sellerId != null">-->
+<!--        seller_id = #{sellerId,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="productNumber != null">-->
+<!--        product_number = #{productNumber,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--    </set>-->
+<!--    where shopping_id = #{shoppingId,jdbcType=INTEGER}-->
+<!--  </update>-->
+<!--  <update id="updateByPrimaryKey" parameterType="com.springboot.model.ShoppingCat">-->
+<!--    update shopping_cat-->
+<!--    set user_id = #{userId,jdbcType=INTEGER},-->
+<!--      product_id = #{productId,jdbcType=INTEGER},-->
+<!--      seller_id = #{sellerId,jdbcType=INTEGER},-->
+<!--      product_number = #{productNumber,jdbcType=INTEGER}-->
+<!--    where shopping_id = #{shoppingId,jdbcType=INTEGER}-->
+<!--  </update>-->
+</mapper>

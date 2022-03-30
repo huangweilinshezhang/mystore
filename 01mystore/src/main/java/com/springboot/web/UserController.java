@@ -254,6 +254,7 @@ public class UserController {
         return mv;
     }
 
+    //验证码阶段
     @RequestMapping(value = "/getcode")
     public void getcode(HttpSession session,HttpServletResponse resp){
         ModelAndView mv=new ModelAndView();

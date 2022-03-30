@@ -84,21 +84,16 @@
 <div class="a">
     <h1>修改页面</h1>
     <form action="/upDateUser" method="post" enctype="multipart/form-data">
-
         <table class="table  table-striped" border="1" cellspacing="0" cellpadding="0">
-
             <tr th:each="user,userStat:${user}">
                 <!-- <input name="userId" th:value="${user.UserId}"  readonly="true" /><br> -->
                 <!--                姓名:<input name="userId" /><br>-->
                 <div class="s">
-
                     <div id="containner" class="touxiang">
-                        用户ID:<input name="userId" th:value="${user.UserId}"/><br
+                        用户ID:<input name="userId" th:value="${user.UserId}"/><br>
                         <p>头像：</p>
                         <img th:src="'/img/userImage/'+${user.UserTouxiang}">
-                        
                         <input name="file" type="file"  id="imgFile" onchange="previewFile() " style="width:100%"><br>
-                        <!--                    之后图像<img src="" height="200" alt="Image preview...">-->
                     </div>
                     <div class="userTables">
                         姓名:<input name="userName" th:value="${user.UserName}"/><br>

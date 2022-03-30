@@ -8,6 +8,7 @@ import com.springboot.model.PageResult;
 import com.springboot.model.PageUtils;
 import com.springboot.model.User;
 import com.springboot.service.UserServervice;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 //
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.List;
 
 @Service
+
 public class UserServiceImpl implements UserServervice {
     @Autowired
     private UserMapper userMapper;

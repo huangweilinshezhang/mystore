@@ -41,6 +41,8 @@ public class Register implements Filter {
 
 		HttpServletRequest req=(HttpServletRequest)request;
 		HttpServletResponse resp=(HttpServletResponse)response;
+		System.out.println(req);
+        System.out.println(resp);
 
 		//设置字符库
 		req.setCharacterEncoding("UTF-8");
@@ -68,7 +70,7 @@ public class Register implements Filter {
 		if(!sysCode.equals(verycode)) {
 			out.write("<script>");
 			out.write("alert('验证码输入错误！');");
-			out.write("location.href='reg.jsp';");
+			out.write("location.href='reg.html';");
 			out.write("</script>");
 			out.close();
 			return;

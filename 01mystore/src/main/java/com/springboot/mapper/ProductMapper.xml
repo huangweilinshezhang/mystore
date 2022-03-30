@@ -15,6 +15,7 @@
     <result column="product_kuaidi" jdbcType="VARCHAR" property="productKuaidi" />
     <result column="seller_id" jdbcType="INTEGER" property="sellerId" />
   </resultMap>
+
   <sql id="Base_Column_List">
     product_id, seller_id, product_name, product_cid, product_fid, product_biaoqian,
     product_detail, product_tupian, product_number, product_price, product_address, product_kuaidi
@@ -41,6 +42,12 @@
     select distinct product_cid from product
   </select>
 
+  <select id="selectProductIdBysellerAndProductTuPian" resultType="java.lang.Integer">
+    select  product_id from product where seller_id = #{sellerId,jdbcType=INTEGER} and
+    product_tupian = #{productTupian,jdbcType=INTEGER}
+  </select>
+
+
   <delete id="deleteByPrimaryKey">
     delete from product
     where product_id = #{productId,jdbcType=INTEGER}
@@ -58,6 +65,9 @@
       #{productPrice,jdbcType=INTEGER}, #{productAddress,jdbcType=VARCHAR}, #{productKuaidi,jdbcType=VARCHAR}
       )
   </insert>
+
+
+<!--  </insert>-->
 <!--  <insert id="insertSelective" parameterType="com.springboot.model.Product">-->
 <!--    insert into product-->
 <!--    <trim prefix="(" suffix=")" suffixOverrides=",">-->
@@ -137,6 +147,11 @@
 <!--      </if>-->
 <!--    </trim>-->
 <!--  </insert>-->
+<!--  updateTupianByProId-->
+  <update id="updateTupianByProId" parameterType="com.springboot.model.Product">
+    update product set product_tupian = #{productId,jdbcType=INTEGER} where product_id = #{yuliuId,jdbcType=INTEGER}
+<!--    update product set product_tupian=72 where product_id=72;-->
+  </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.springboot.model.Product">
     update product
     <set>
@@ -154,9 +169,6 @@
       </if>
       <if test="productDetail != null">
         product_detail = #{productDetail,jdbcType=VARCHAR},
-      </if>
-      <if test="productTupian != null">
-        product_tupian = #{productTupian,jdbcType=INTEGER},
       </if>
       <if test="productNumber != null">
         product_number = #{productNumber,jdbcType=INTEGER},

@@ -167,101 +167,60 @@
 
 <!-- Portfolio Section Start -->
 <div class="section section-margin">
-    <div class="container">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 m-b-n30">
-            <div class="col m-b-30" data-aos="fade-up" data-aos-duration="1100">
+    <div class="container" >
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 m-b-n30" >
+<!--            <table>-->
+<!--                <tr th:each="product,productStat:${pageInfo.list}">-->
+<!--                    <td >-->
+<!--                        <p th:each="img,imgStat:${session.FinishPImglist}">-->
+<!--                            <span th:if="${productStat.index}==${imgStat.index}"><img th:src="'/img/productImage/'+${img.ImgNumber}"/></span>-->
+
+<!--                        </p>-->
+<!--                        <span th:text="${product.ProductName}"></span>-->
+<!--                    </td>-->
+
+<!--                </tr>-->
+
+<!--            </table>-->
+            <div class="col m-b-30" data-aos="fade-up" data-aos-duration="1100" th:each="product,productStat:${pageInfo.list}">
                 <div class="single-gallery">
                     <div class="gallery-thumb">
-                        <a href="portfolio-details.html">
-                            <img class="fit-image" src="images/portfolio/1.png" alt="Gallery Image">
+                        <a th:href="'/portfolioDetails?productId='+${product.ProductId}+'&&sellerId='+${product.SellerId}">
+                        <div th:each="img,imgStat:${session.FinishPImglist}">
+                            <span th:if="${productStat.index}==${imgStat.index}">
+<!--                                //这个相等的很重要维持这产品和产品图片的平衡-->
+                                <img th:src="'/img/productImage/'+${img.ImgNumber}"/></span>
+                        </div>
+                        <span th:text="${product.ProductName}"></span>
                         </a>
                     </div>
                 </div>
+
             </div>
-            <div class="col m-b-30" data-aos="fade-up" data-aos-duration="1200">
-                <div class="single-gallery">
-                    <div class="gallery-thumb">
-                        <a href="portfolio-details.html">
-                            <img class="fit-image" src="images/portfolio/2.png" alt="Gallery Image">
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col m-b-30" data-aos="fade-up" data-aos-duration="1300">
-                <div class="single-gallery">
-                    <div class="gallery-thumb">
-                        <a href="portfolio-details.html">
-                            <img class="fit-image" src="images/portfolio/3.png" alt="Gallery Image">
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col m-b-30" data-aos="fade-up" data-aos-duration="1400">
-                <div class="single-gallery">
-                    <div class="gallery-thumb">
-                        <a href="portfolio-details.html">
-                            <img class="fit-image" src="images/portfolio/4.png" alt="Gallery Image">
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col m-b-30" data-aos="fade-up" data-aos-duration="1500">
-                <div class="single-gallery">
-                    <div class="gallery-thumb">
-                        <a href="portfolio-details.html">
-                            <img class="fit-image" src="images/portfolio/5.png" alt="Gallery Image">
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col m-b-30" data-aos="fade-up" data-aos-duration="1600">
-                <div class="single-gallery">
-                    <div class="gallery-thumb">
-                        <a href="portfolio-details.html">
-                            <img class="fit-image" src="images/portfolio/6.png" alt="Gallery Image">
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col m-b-30" data-aos="fade-up" data-aos-duration="1700">
-                <div class="single-gallery">
-                    <div class="gallery-thumb">
-                        <a href="portfolio-details.html">
-                            <img class="fit-image" src="images/portfolio/7.png" alt="Gallery Image">
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col m-b-30" data-aos="fade-up" data-aos-duration="1800">
-                <div class="single-gallery">
-                    <div class="gallery-thumb">
-                        <a href="portfolio-details.html">
-                            <img class="fit-image" src="images/portfolio/8.png" alt="Gallery Image">
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col m-b-30" data-aos="fade-up" data-aos-duration="1900">
-                <div class="single-gallery">
-                    <div class="gallery-thumb">
-                        <a href="portfolio-details.html">
-                            <img class="fit-image" src="images/portfolio/9.png" alt="Gallery Image">
-                        </a>
-                    </div>
-                </div>
-            </div>
+
+</div>
         </div>
         <div class="row m-t-40 m-b-n10">
             <div class="col-12" data-aos="fade-up" data-aos-duration="1100">
+                <div class="list-page" style="margin-left:30%;">
+
+
+
+
+
+
+                </div>
                 <nav>
                     <ul class="pagination">
-                        <li><a href="#/">1</a></li>
-                        <li><a class="active" href="#/">2</a></li>
-                        <li><a href="#/">3</a></li>
-                        <li><span></span></li>
-                        <li><span></span></li>
-                        <li><span></span></li>
-                        <li><a href="#/">10</a></li>
+                        <li><a href="http://localhost:8085/portfolio?pageNum=1&pageSize=10">首页</a></li>
+                        <li>共 </li>
+                        <li><p th:text="${pageInfo.total}"></p></li>
+                        <li>条，当前</li>
+                        <li><p th:text="${pageInfo.pageNum}"></p></li>
+                        <li>页</li>
+                        <li><a th:href="'http://localhost:8085/portfolio?pageNum='+(${pageInfo.pageNum}-1)+'&pageSize=10'">上一页</a></li>
+                        <li> <a th:href="'http://localhost:8085/portfolio?pageNum='+(${pageInfo.pageNum}+1)+'&pageSize=10'">下一页</a></li>
+                        <li><a th:href="'http://localhost:8085/portfolio?pageNum='+${pageInfo.pages}+'&pageSize=10'">尾页</a></li>
                     </ul>
                 </nav>
             </div>
