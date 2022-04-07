@@ -6,6 +6,7 @@
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="product_id" jdbcType="INTEGER" property="productId" />
     <result column="seller_id" jdbcType="INTEGER" property="sellerId" />
+    <result column="order_state" jdbcType="INTEGER" property="orderState" />
     <result column="product_number" jdbcType="INTEGER" property="productNumber" />
   </resultMap>
   <sql id="Base_Column_List">
@@ -95,14 +96,16 @@
 <!--    </set>-->
 <!--    where shopping_id = #{shoppingId,jdbcType=INTEGER}-->
 <!--  </update>-->
-<!--  <update id="updateByPrimaryKey" parameterType="com.springboot.model.ShoppingCat">-->
-<!--    update shopping_cat-->
-<!--    set user_id = #{userId,jdbcType=INTEGER},-->
-<!--      product_id = #{productId,jdbcType=INTEGER},-->
-<!--      seller_id = #{sellerId,jdbcType=INTEGER},-->
-<!--      product_number = #{productNumber,jdbcType=INTEGER}-->
-<!--    where shopping_id = #{shoppingId,jdbcType=INTEGER}-->
-<!--  </update>-->
+  <update id="productNumberAdd" parameterType="com.springboot.model.ShoppingCat">
+    update shopping_cat
+    set product_number = #{productNumber,jdbcType=INTEGER}
+    where user_id = #{userId,jdbcType=INTEGER} and product_id = #{productId,jdbcType=INTEGER} and shopping_id = #{shoppingId,jdbcType=INTEGER}
+  </update>
+  <update id="productNumberSub" parameterType="com.springboot.model.ShoppingCat">
+    update shopping_cat
+    set product_number = #{productNumber,jdbcType=INTEGER}
+    where user_id = #{userId,jdbcType=INTEGER} and product_id = #{productId,jdbcType=INTEGER} and shopping_id = #{shoppingId,jdbcType=INTEGER}
+  </update>
 <!--  <resultMap id="BaseResultMap" type="com.springboot.model.ShoppingCat">-->
 <!--    <id column="shopping_id" jdbcType="INTEGER" property="shoppingId" />-->
 <!--    <result column="user_id" jdbcType="INTEGER" property="userId" />-->
@@ -184,12 +187,9 @@
 <!--    </set>-->
 <!--    where shopping_id = #{shoppingId,jdbcType=INTEGER}-->
 <!--  </update>-->
-<!--  <update id="updateByPrimaryKey" parameterType="com.springboot.model.ShoppingCat">-->
-<!--    update shopping_cat-->
-<!--    set user_id = #{userId,jdbcType=INTEGER},-->
-<!--      product_id = #{productId,jdbcType=INTEGER},-->
-<!--      seller_id = #{sellerId,jdbcType=INTEGER},-->
-<!--      product_number = #{productNumber,jdbcType=INTEGER}-->
-<!--    where shopping_id = #{shoppingId,jdbcType=INTEGER}-->
-<!--  </update>-->
+  <update id="updataByPrimaryKey" parameterType="com.springboot.model.ShoppingCat">
+    update orderuser
+    set order_state = #{orderState,jdbcType=INTEGER}
+    where user_id = #{userId,jdbcType=INTEGER} and order_state = 1
+  </update>
 </mapper>

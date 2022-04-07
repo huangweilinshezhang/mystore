@@ -1,164 +1,438 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head lang="en">
     <meta charset="utf-8"/>
     <title>ok</title>
     <link rel="stylesheet" type="text/css" href="css/public.css"/>
     <link rel="stylesheet" type="text/css" href="css/proList.css"/>
+    <!--    index Start-->
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="stylesheet" href="css/vendor/vendor.min.css">
+    <link rel="stylesheet" href="css/plugins/plugins.min.css">
+    <link rel="stylesheet" href="css/style.min.css">\
+    <script src="js/jquery-1.12.2.js"></script>
+    <script src="js/vendor.min.js"></script>
+    <script src="js/plugins.min.js"></script>
+    <!--Main JS-->
+    <script src="js/main.js"></script>
+    <!--    index End-->
+
+
+
 </head>
-<body><!----------------------------------------order------------------>
-<div class="head ding">
-    <div class="wrapper clearfix">
-        <div class="clearfix" id="top"><h1 class="fl"><a href="index.html"><img src="img/logo.png"/></a></h1>
-            <div class="fr clearfix" id="top1"><p class="fl"><a href="#" id="login">登录</a><a href="#" id="reg">注册</a>
-            </p>
-                <form action="#" method="get" class="fl"><input type="text" placeholder="搜索"/><input type="button"/>
-                </form>
-                <div class="btn fl clearfix"><a href="mygxin.html"><img src="img/grzx.png"/></a><a href="#" class="er1"><img
-                        src="img/ewm.png"/></a><a href="cart.html"><img src="img/gwc.png"/></a>
-                    <p><a href="#"><img src="img/smewm.png"/></a></p></div>
+<body>
+<!----------------------------------------order------------------>
+<!-- Header Section Start -->
+<div class="header" style="background:#212529;">
+    <div class="sticky-header">
+        <div class="header-container container-fluid">
+            <div class="header-wrapper">
+
+                <!-- Header Logo Start -->
+                <div class="header-logo">
+                    <a href="index.html"><img src="images/logo/logo.png" alt="Logo"></a>
+                </div>
+                <!-- Header Logo End -->
+
+                <!-- Header Menu Start -->
+                <div class="main-menu d-none d-lg-flex">
+                    <ul>
+                        <li><a class="active" href="/index">首页</a></li>
+                        <li><a href="/about">关于我们</a></li>
+                        <li class="has-children">
+                            <a href="/service">服务</a>
+                            <ul class="sub-menu">
+                                <li><a href="/service">服务</a></li>
+                                <li><a href="/serviceDetails">服务详情</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-children">
+                            <a href="/portfolio">产品</a>
+                            <ul class="sub-menu">
+                                <li><a href="/portfolio">产品</a></li>
+                                <!--                                <li><a href="/portfolioDetails">产品详情</a></li>-->
+                            </ul>
+                        </li>
+                        <li class="has-children">
+                            <a href="blog">博客</a>
+                            <ul class="sub-menu">
+                                <li><a href="/blog">博客</a></li>
+                                <li><a href="/blogDetails">博客详情</a></li>
+                                <li><a href="/blogDetailsSidebar">博客侧边栏详情</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="contact">联系我们</a></li>
+                    </ul>
+                </div>
+                <!-- Header Menu End -->
+
+                <!-- Header Social Actions Start -->
+                <div class="header-social-actions">
+                    <div class="header-social d-none d-lg-block">
+                        <!--                                <span th:text="${session.isLogin}"></span>-->
+                        <ul>
+                            <!--                                <span th:if="${isLogin} == 1">登录</span>-->
+                            <if th:if="${session.isLogin} !=1">
+                                <li >
+                                    <a href="/login">登录</a>
+                                </li>
+                            </if>
+                            <if th:if="${session.isLogin} ==1">
+                                <li style="width:100%;height:100%;">
+                                    <!--                                        <div th:each="user,userStat:${user}">-->
+                                    <img th:src="'/img/userImage/'+${session.user.UserTouxiang} " style="height:40px;width:40px;margin:0 0;">
+                                    <a th:text="${session.user.UserName}"></a>
+                                    <a href="/layout">退出</a>
+                                    <a href="/getAllPerson">进入后台</a>
+                            </if>
+
+                        </ul>
+                    </div>
+
+                    <div class="header-actions">
+                        <!-- Mobile Menu Hambarger Action Button Start -->
+                        <a class="header-action-btn header-action-search d-flex" href="#/">
+                            <i class="fa fa-search"></i>
+                        </a>
+                        <!-- Mobile Menu Hambarger Action Button End -->
+                        <!-- Mobile Menu Hambarger Action Button Start -->
+                        <a class="header-action-btn header-action-btn-menu d-flex" href="#/">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </a>
+                        <!-- Mobile Menu Hambarger Action Button End -->
+                    </div>
+
+                </div>
+                <!-- Header Social Actions End -->
+
             </div>
         </div>
-        <ul class="clearfix" id="bott">
-            <li><a href="index.html">首页</a></li>
-            <li><a href="#">所有商品</a>
-                <div class="sList">
-                    <div class="wrapper  clearfix"><a href="paint.html">
-                        <dl>
-                            <dt><img src="img/nav1.jpg"/></dt>
-                            <dd>浓情欧式</dd>
-                        </dl>
-                    </a><a href="paint.html">
-                        <dl>
-                            <dt><img src="img/nav2.jpg"/></dt>
-                            <dd>浪漫美式</dd>
-                        </dl>
-                    </a><a href="paint.html">
-                        <dl>
-                            <dt><img src="img/nav3.jpg"/></dt>
-                            <dd>雅致中式</dd>
-                        </dl>
-                    </a><a href="paint.html">
-                        <dl>
-                            <dt><img src="img/nav6.jpg"/></dt>
-                            <dd>简约现代</dd>
-                        </dl>
-                    </a><a href="paint.html">
-                        <dl>
-                            <dt><img src="img/nav7.jpg"/></dt>
-                            <dd>创意装饰</dd>
-                        </dl>
-                    </a></div>
-                </div>
-            </li>
-            <li><a href="flowerDer.html">装饰摆件</a>
-                <div class="sList2">
-                    <div class="clearfix"><a href="proList.html">干花花艺</a><a href="vase_proList.html">花瓶花器</a></div>
-                </div>
-            </li>
-            <li><a href="decoration.html">布艺软饰</a>
-                <div class="sList2">
-                    <div class="clearfix"><a href="zbproList.html">桌布罩件</a><a href="bzproList.html">抱枕靠垫</a></div>
-                </div>
-            </li>
-            <li><a href="paint.html">墙式壁挂</a></li>
-            <li><a href="perfume.html">蜡艺香薰</a></li>
-            <li><a href="idea.html">创意家居</a></li>
-        </ul>
     </div>
 </div>
+<!-- Header Section End -->
+<div class="order cart mt">
+
+</div>
 <div class="order mt cart">
-    <div class="site"><p class="wrapper clearfix"><span class="fl">支付成功</span><img class="top"
-                                                                                   src="img/temp/cartTop03.png"></p>
+    <div class="site"><p class="wrapper clearfix"><span class="fl">支付成功</span><img class="top" src="img/cart/cartTop03.png"></p>
     </div>
-    <p class="ok">支付成功！剩余<span>5</span>秒<a href="myorderq.html">返回订单页</a></p></div>
-<div class="like"><h4>猜你喜欢</h4>
-    <div class="bottom">
-        <div class="hd"><span class="prev"><img src="img/temp/prev.png"></span><span class="next"><img
-                src="img/temp/next.png"></span></div>
-        <div class="imgCon wrapper bd">
-            <div class="likeList clearfix">
-                <div><a href="proDetail.html">
-                    <dl>
-                        <dt><img src="img/temp/like01.jpg"></dt>
-                        <dd>【最家】复古文艺风玻璃花瓶</dd>
-                        <dd>￥193.20</dd>
-                    </dl>
-                </a><a href="proDetail.html">
-                    <dl>
-                        <dt><img src="img/temp/like02.jpg"></dt>
-                        <dd>【最家】复古文艺风玻璃花瓶</dd>
-                        <dd>￥193.20</dd>
-                    </dl>
-                </a><a href="proDetail.html">
-                    <dl>
-                        <dt><img src="img/temp/like03.jpg"></dt>
-                        <dd>【最家】复古文艺风玻璃花瓶</dd>
-                        <dd>￥193.20</dd>
-                    </dl>
-                </a><a href="proDetail.html">
-                    <dl>
-                        <dt><img src="img/temp/like04.jpg"></dt>
-                        <dd>【最家】复古文艺风玻璃花瓶</dd>
-                        <dd>￥193.20</dd>
-                    </dl>
-                </a><a href="proDetail.html" class="last">
-                    <dl>
-                        <dt><img src="img/temp/like05.jpg"></dt>
-                        <dd>【最家】复古文艺风玻璃花瓶</dd>
-                        <dd>￥193.20</dd>
-                    </dl>
-                </a></div>
-                <div><a href="proDetail.html">
-                    <dl>
-                        <dt><img src="img/temp/like01.jpg"></dt>
-                        <dd>【最家】复古文艺风玻璃花瓶</dd>
-                        <dd>￥193.20</dd>
-                    </dl>
-                </a><a href="proDetail.html">
-                    <dl>
-                        <dt><img src="img/temp/like02.jpg"></dt>
-                        <dd>【最家】复古文艺风玻璃花瓶</dd>
-                        <dd>￥193.20</dd>
-                    </dl>
-                </a><a href="proDetail.html">
-                    <dl>
-                        <dt><img src="img/temp/like03.jpg"></dt>
-                        <dd>【最家】复古文艺风玻璃花瓶</dd>
-                        <dd>￥193.20</dd>
-                    </dl>
-                </a><a href="proDetail.html">
-                    <dl>
-                        <dt><img src="img/temp/like04.jpg"></dt>
-                        <dd>【最家】复古文艺风玻璃花瓶</dd>
-                        <dd>￥193.20</dd>
-                    </dl>
-                </a><a href="proDetail.html" class="last">
-                    <dl>
-                        <dt><img src="img/temp/like05.jpg"></dt>
-                        <dd>【最家】复古文艺风玻璃花瓶</dd>
-                        <dd>￥193.20</dd>
-                    </dl>
-                </a></div>
+    <p class="ok">支付成功！剩余<span>5</span>秒<a href="/index">返回首页</a></p></div>
+<!--<div class="like"><h4>猜你喜欢</h4>-->
+<!--    <div class="bottom">-->
+<!--        <div class="hd"><span class="prev"><img src="img/temp/prev.png"></span><span class="next"><img-->
+<!--                src="img/temp/next.png"></span></div>-->
+<!--        <div class="imgCon wrapper bd">-->
+<!--            <div class="likeList clearfix">-->
+<!--                <div><a href="proDetail.html">-->
+<!--                    <dl>-->
+<!--                        <dt><img src="img/temp/like01.jpg"></dt>-->
+<!--                        <dd>【最家】复古文艺风玻璃花瓶</dd>-->
+<!--                        <dd>￥193.20</dd>-->
+<!--                    </dl>-->
+<!--                </a><a href="proDetail.html">-->
+<!--                    <dl>-->
+<!--                        <dt><img src="img/temp/like02.jpg"></dt>-->
+<!--                        <dd>【最家】复古文艺风玻璃花瓶</dd>-->
+<!--                        <dd>￥193.20</dd>-->
+<!--                    </dl>-->
+<!--                </a><a href="proDetail.html">-->
+<!--                    <dl>-->
+<!--                        <dt><img src="img/temp/like03.jpg"></dt>-->
+<!--                        <dd>【最家】复古文艺风玻璃花瓶</dd>-->
+<!--                        <dd>￥193.20</dd>-->
+<!--                    </dl>-->
+<!--                </a><a href="proDetail.html">-->
+<!--                    <dl>-->
+<!--                        <dt><img src="img/temp/like04.jpg"></dt>-->
+<!--                        <dd>【最家】复古文艺风玻璃花瓶</dd>-->
+<!--                        <dd>￥193.20</dd>-->
+<!--                    </dl>-->
+<!--                </a><a href="proDetail.html" class="last">-->
+<!--                    <dl>-->
+<!--                        <dt><img src="img/temp/like05.jpg"></dt>-->
+<!--                        <dd>【最家】复古文艺风玻璃花瓶</dd>-->
+<!--                        <dd>￥193.20</dd>-->
+<!--                    </dl>-->
+<!--                </a></div>-->
+<!--                <div><a href="proDetail.html">-->
+<!--                    <dl>-->
+<!--                        <dt><img src="img/temp/like01.jpg"></dt>-->
+<!--                        <dd>【最家】复古文艺风玻璃花瓶</dd>-->
+<!--                        <dd>￥193.20</dd>-->
+<!--                    </dl>-->
+<!--                </a><a href="proDetail.html">-->
+<!--                    <dl>-->
+<!--                        <dt><img src="img/temp/like02.jpg"></dt>-->
+<!--                        <dd>【最家】复古文艺风玻璃花瓶</dd>-->
+<!--                        <dd>￥193.20</dd>-->
+<!--                    </dl>-->
+<!--                </a><a href="proDetail.html">-->
+<!--                    <dl>-->
+<!--                        <dt><img src="img/temp/like03.jpg"></dt>-->
+<!--                        <dd>【最家】复古文艺风玻璃花瓶</dd>-->
+<!--                        <dd>￥193.20</dd>-->
+<!--                    </dl>-->
+<!--                </a><a href="proDetail.html">-->
+<!--                    <dl>-->
+<!--                        <dt><img src="img/temp/like04.jpg"></dt>-->
+<!--                        <dd>【最家】复古文艺风玻璃花瓶</dd>-->
+<!--                        <dd>￥193.20</dd>-->
+<!--                    </dl>-->
+<!--                </a><a href="proDetail.html" class="last">-->
+<!--                    <dl>-->
+<!--                        <dt><img src="img/temp/like05.jpg"></dt>-->
+<!--                        <dd>【最家】复古文艺风玻璃花瓶</dd>-->
+<!--                        <dd>￥193.20</dd>-->
+<!--                    </dl>-->
+<!--                </a></div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--footer-->
+
+<!--footer-->
+<!-- Newsletter Section Start -->
+<div class="section section-padding overlay" data-bg-image="images/banner/video-banner.jpg" data-aos="fade-up" data-aos-duration="1100">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+
+                <!-- Newsletter wrapper Start -->
+                <div class="newsletter-wrapper">
+                    <div class="newsletter-content">
+                        <p>订阅我们的<span class="text-color-primary">时事通讯</span>并<br>获取更新新闻和优惠</p>
+                    </div>
+                    <!-- Newsletter Form Start -->
+                    <div class="newsletter-form-wrap p-t-40">
+                        <form id="mc-form" class="mc-form">
+                            <input type="email" id="mc-email" class="form-control email-box" placeholder="Enter your email here.." name="EMAIL">
+                            <button id="mc-submit" class="newsletter-btn" type="submit">Subscribe</button>
+                        </form>
+                        <!-- mailchimp-alerts Start -->
+                        <div class="mailchimp-alerts text-centre">
+                            <div class="mailchimp-submitting"></div><!-- mailchimp-submitting end -->
+                            <div class="mailchimp-success text-success"></div><!-- mailchimp-success end -->
+                            <div class="mailchimp-error text-danger"></div><!-- mailchimp-error end -->
+                        </div>
+                        <!-- mailchimp-alerts end -->
+                    </div>
+                    <!-- Newsletter Form End -->
+                </div>
+                <!-- Newsletter wrapper End -->
+
             </div>
         </div>
     </div>
-</div><!--footer-->
-<div class="footer">
-    <div class="top">
-        <div class="wrapper">
-            <div class="clearfix"><a href="#2" class="fl"><img src="img/foot1.png"/></a><span class="fl">7天无理由退货</span>
-            </div>
-            <div class="clearfix"><a href="#2" class="fl"><img src="img/foot2.png"/></a><span class="fl">15天免费换货</span>
-            </div>
-            <div class="clearfix"><a href="#2" class="fl"><img src="img/foot3.png"/></a><span class="fl">满599包邮</span>
-            </div>
-            <div class="clearfix"><a href="#2" class="fl"><img src="img/foot4.png"/></a><span class="fl">手机特色服务</span>
+</div>
+<!-- Newsletter Section End -->
+
+<!--== Start Footer Area Wrapper ==-->
+<footer class="section footer-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <!--== Start Footer Widget Area ==-->
+                <div class="footer-widget-area">
+                    <div class="row m-b-n40">
+                        <div class="col-sm-6 col-md-6 col-lg-3 m-b-40" data-aos="fade-up" data-aos-duration="1100">
+                            <div class="widget-item pb-sm-20">
+                                <h4 class="widget-title">WE ARE CREATIVE AGENCY</h4>
+                                <div class="about-widget">
+                                    <p>Nunc ut vehicula ante. Donec cursus felis diam, at vulputate ligula sollicitudin at. Vivamus massa lorem Lorem Ipsum is simple.</p>
+                                    <div class="social-icons">
+                                        <a href="#/"><i class="fa fa-facebook"></i></a>
+                                        <a href="#/"><i class="fa fa-twitter"></i></a>
+                                        <a href="#/"><i class="fa fa-pinterest-p"></i></a>
+                                        <a href="#/"><i class="fa fa-dribbble"></i></a>
+                                        <a href="#/"><i class="fa fa-behance"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-3 d-flex justify-content-start justify-content-lg-center m-b-40" data-aos="fade-up" data-aos-duration="1500">
+                            <div class="widget-item">
+                                <h4 class="widget-title">COMPANY</h4>
+                                <ul class="widget-list">
+                                    <li><a href="about.html">About Us</a></li>
+                                    <li><a href="contact.html">Jobs</a></li>
+                                    <li><a href="contact.html">Press</a></li>
+                                    <li><a href="contact.html">Contact</a></li>
+                                    <li><a href="blog-details.html">Blog</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-3 m-b-40" data-aos="fade-up" data-aos-duration="2000">
+                            <div class="widget-item">
+                                <h4 class="widget-title">RECENT POST</h4>
+                                <ul class="widget-post">
+                                    <li><a href="blog-details.html">Multi-purpose Creative Template</a></li>
+                                    <li><a href="blog-details.html">Design is inherently optimistic. that is its power.</a></li>
+                                    <li><a href="blog-details.html">I wish someone would ask me to design a cathedral</a></li>
+                                    <li><a href="blog-details.html">We help the elderly use the internet</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-3 m-b-40" data-aos="fade-up" data-aos-duration="2500">
+                            <div class="widget-item">
+                                <h4 class="widget-title">REFOLLOW US INSTAGRAM</h4>
+                                <ul class="widget-instagram">
+                                    <li><a href="#/"><img class="fit-image" src="images/instagram/2.jpg" alt="Image-HasTech"></a></li>
+                                    <li><a href="#/"><img class="fit-image" src="images/instagram/3.jpg" alt="Image-HasTech"></a></li>
+                                    <li><a href="#/"><img class="fit-image" src="images/instagram/1.jpg" alt="Image-HasTech"></a></li>
+                                    <li><a href="#/"><img class="fit-image" src="images/instagram/4.jpg" alt="Image-HasTech"></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--== End Footer Widget Area ==-->
             </div>
         </div>
     </div>
-    <p class="dibu">最家家居&copy;2013-2017公司版权所有 京ICP备080100-44备0000111000号<br/>
-        违法和不良信息举报电话：188-0130-1238，本网站所列数据，除特殊说明，所有数据均出自我司实验室测试</p></div>
+    <div class="footer-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="copyright-content">
+                        <p class="mb-0">Copyright &copy; 2021.Company name All rights reserved.<a target="_blank" href="https://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!--== End Footer Area Wrapper ==-->
+
+<!-- Scroll Top Start -->
+<a href="#" class="scroll-top show" id="scroll-top">
+    <i class="arrow-top icofont-bubble-up"></i>
+    <i class="arrow-bottom icofont-bubble-up"></i>
+</a>
+<!-- Scroll Top End -->
+
+<!-- Mobile Menu Start -->
+<div class="mobile-menu-wrapper">
+    <div class="offcanvas-overlay"></div>
+
+    <!-- Mobile Menu Inner Start -->
+    <div class="mobile-menu-inner">
+
+        <!-- Button Close Start -->
+        <div class="offcanvas-btn-close">
+            <i class="icofont-close-line"></i>
+        </div>
+        <!-- Button Close End -->
+
+        <!-- Mobile Menu Inner Wrapper Start -->
+        <div class="mobile-menu-inner-wrapper">
+
+            <!-- Mobile Menu Start -->
+            <div class="mobile-navigation">
+                <nav>
+                    <ul class="mobile-menu">
+                        <if th:if="${session.isLogin} !=1">
+                            <li >
+                                <a href="/login">登录</a>
+                            </li>
+                        </if>
+                        <if th:if="${session.isLogin} ==1">
+                            <li style="width:100%;height:100%;">
+                                <a th:href="'upUser?id='+${session.user.UserId}"><img th:src="'/img/userImage/'+${session.user.UserTouxiang} " style="height:40px;width:40px;margin:0 0;"></a>
+                                <a th:text="${session.user.UserName}"></a>
+                                <a href="/layout">退出</a>
+                            </li>
+                            <li>
+                                    <span th:if="${session.user.UserStat}==1">
+                                    <a href="/getAllPerson">进入后台</a>
+                                    </span>
+                            </li>
+                        </if>
+                        <li><a href="/index">首页</a></li>
+                        <li><a href="/about">About Us</a></li>
+                        <li class="has-children">
+                            <a href="#">Service <i class="icofont-dotted-down" aria-hidden="true"></i></a>
+                            <ul class="dropdown">
+                                <li><a href="/service">Service</a></li>
+                                <li><a href="/serviceDetails">Service Details</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-children">
+                            <a href="#">Portfolio <i class="icofont-dotted-down" aria-hidden="true"></i></a>
+                            <ul class="dropdown">
+                                <li><a href="/portfolio">Portfolio</a></li>
+                                <!--                                    <li><a href="/portfolioDetails">Portfolio Details</a></li>-->
+                            </ul>
+                        </li>
+                        <li class="has-children">
+                            <a href="#">Blog <i class="icofont-dotted-down" aria-hidden="true"></i></a>
+                            <ul class="dropdown">
+                                <li><a href="/blog">Blog Grid</a></li>
+                                <li><a href="/blogDetails">Blog Details Fullwidth</a></li>
+                                <li><a href="/blogDetailsSidebar">Blog Details Sidebar</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="/contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <!-- Mobile Menu End -->
+
+            <!-- Contact Links/Social Links Start -->
+            <div class="mt-auto bottom-0">
+
+                <!-- Contact Links Start -->
+                <ul class="contact-links">
+                    <li><i class="icofont-phone"></i><a href="tel:+0123456789"> +012 3456 789</a></li>
+                    <li><i class="icofont-envelope-open"></i><a href="mailto:info@example.com"> info@example.com</a></li>
+                    <li><i class="icofont-wall-clock"></i> <span>Monday - Sunday 9.00 - 18.00</span> </li>
+                </ul>
+                <!-- Contact Links End -->
+
+                <div class="header-social">
+                    <ul>
+                        <li>
+                            <a href="#/"><i class="fa fa-facebook-f"></i></a>
+                        </li>
+                        <li>
+                            <a href="#/"><i class="fa fa-twitter"></i></a>
+                        </li>
+                        <li>
+                            <a href="#/"><i class="fa fa-pinterest-p"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Contact Links/Social Links End -->
+        </div>
+        <!-- Mobile Menu Inner Wrapper End -->
+
+    </div>
+    <!-- Mobile Menu Inner End -->
+</div>
+<!-- Mobile Menu End -->
+
+<!-- Offcanvas Search Start -->
+<div class="offcanvas-search">
+    <div class="offcanvas-search-inner">
+
+        <!-- Button Close Start -->
+        <div class="offcanvas-btn-close">
+            <i class="icofont-close-line"></i>
+        </div>
+        <!-- Button Close End -->
+
+        <!-- Offcanvas Search Form Start -->
+        <form class="offcanvas-search-form" action="#">
+            <input type="text" placeholder="Search Here" class="offcanvas-search-input">
+        </form>
+        <!-- Offcanvas Search Form End -->
+
+    </div>
+</div>
+<!-- Offcanvas Search End -->
 <script src="js/jquery-1.12.4.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/public.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/pro.js" type="text/javascript" charset="utf-8"></script>

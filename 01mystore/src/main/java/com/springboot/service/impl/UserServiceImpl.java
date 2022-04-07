@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserServervice {
 
 
     @Override
-    public void updateByPrimaryKey(Integer userId,String userTouxiang,String userName, String userPassword, Integer userAge, String userEmial, Integer userSex, Integer userNumber, Integer userAddressId) {
+    public void updateByPrimaryKey(Integer userId,String userTouxiang,String userName, String userPassword, Integer userAge, String userEmial, Integer userSex, String userNumber, Integer userAddressId) {
         userMapper.updateByPrimaryKey(userId,userTouxiang,userName,userPassword,userAge,userEmial,userSex,userNumber,userAddressId);
     }
     @Override
@@ -69,8 +69,18 @@ public class UserServiceImpl implements UserServervice {
     }
 
     @Override
-    public void userAdd(String userName,String userTouxiang, String userPassword, Integer userAge, String userEmial, Integer userSex, Integer userNumber, Integer userAddressId) {
-        userMapper.userAdd(userName,userTouxiang,userPassword,userAge,userEmial,userSex,userNumber,userAddressId);
+    public User selectUserByEmailAndPwd(String userEmail, String userPassword) {
+        return userMapper.selectUserByEmailAndPwd(userEmail,userPassword);
+    }
+
+    @Override
+    public void updateUserAddress(int addressId,int userId, Integer userStat) {
+        userMapper.updateUserAddress(addressId,userId,userStat);
+    }
+
+    @Override
+    public void userAdd(String userName,String userTouxiang, String userPassword, Integer userAge, String userEmial, Integer userSex, String userNumber, Integer userAddressId,Integer userStat) {
+        userMapper.userAdd(userName,userTouxiang,userPassword,userAge,userEmial,userSex,userNumber,userAddressId,userStat);
     }
 
 }

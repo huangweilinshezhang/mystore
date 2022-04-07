@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springboot.mapper.UserAddressMapper">
+  <resultMap id="BaseResultMap" type="com.springboot.model.UserAddress">
+    <id column="address_id" jdbcType="INTEGER" property="addressId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="consignee" jdbcType="VARCHAR" property="consignee" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="address_staus" jdbcType="INTEGER" property="addressStaus" />
+    <result column="user_tel" jdbcType="VARCHAR" property="userTel" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    address_id, user_id, consignee, address, address_staus, user_tel
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    *
+    from user_address
+    where address_id = #{userAddressId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from user_address where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByUserIdAnduserStaus" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from user_address where user_id = #{userId,jdbcType=INTEGER} and address_staus = #{userStaus,jdbcType=INTEGER}
+  </select>
+
+    <delete id="deleteByUserId" parameterType="java.lang.Integer">
+      delete from user_address
+      where user_id = #{id,jdbcType=INTEGER}
+    </delete>
+<!--  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">-->
+<!--    delete from user_address-->
+<!--    where address_id = #{addressId,jdbcType=INTEGER}-->
+<!--  </delete>-->
+  <insert id="insertSelective" parameterType="com.springboot.model.UserAddress">
+    insert into user_address (user_id, consignee,address, address_staus, user_tel)
+    values (#{userId,jdbcType=INTEGER}, #{consignee,jdbcType=VARCHAR},
+    #{address,jdbcType=VARCHAR}, #{addressStaus,jdbcType=INTEGER}, #{userTel,jdbcType=VARCHAR})
+  </insert>
+
+  <update id="updateByPrimaryKey" parameterType="com.springboot.model.UserAddress">
+    update user_address
+    set
+    address = #{address,jdbcType=VARCHAR},
+    user_tel = #{userTel,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=INTEGER} and address_staus = #{userStaus,jdbcType=INTEGER}
+  </update>
+<!--  <insert id="insert" parameterType="com.springboot.model.UserAddress">-->
+<!--    insert into user_address-->
+<!--    <trim prefix="(" suffix=")" suffixOverrides=",">-->
+<!--      <if test="addressId != null">-->
+<!--        address_id,-->
+<!--      </if>-->
+<!--      <if test="userId != null">-->
+<!--        user_id,-->
+<!--      </if>-->
+<!--      <if test="consignee != null">-->
+<!--        consignee,-->
+<!--      </if>-->
+<!--      <if test="address != null">-->
+<!--        address,-->
+<!--      </if>-->
+<!--      <if test="addressStaus != null">-->
+<!--        address_staus,-->
+<!--      </if>-->
+<!--      <if test="userTel != null">-->
+<!--        user_tel,-->
+<!--      </if>-->
+<!--    </trim>-->
+<!--    <trim prefix="values (" suffix=")" suffixOverrides=",">-->
+<!--      <if test="addressId != null">-->
+<!--        #{addressId,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="userId != null">-->
+<!--        #{userId,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="consignee != null">-->
+<!--        #{consignee,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="address != null">-->
+<!--        #{address,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="addressStaus != null">-->
+<!--        #{addressStaus,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="userTel != null">-->
+<!--        #{userTel,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--    </trim>-->
+<!--  </insert>-->
+<!--  <update id="updateByPrimaryKeySelective" parameterType="com.springboot.model.UserAddress">-->
+<!--    update user_address-->
+<!--    <set>-->
+<!--      <if test="userId != null">-->
+<!--        user_id = #{userId,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="consignee != null">-->
+<!--        consignee = #{consignee,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="address != null">-->
+<!--        address = #{address,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="addressStaus != null">-->
+<!--        address_staus = #{addressStaus,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="userTel != null">-->
+<!--        user_tel = #{userTel,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--    </set>-->
+<!--    where address_id = #{addressId,jdbcType=INTEGER}-->
+<!--  </update>-->
+<!--  <update id="updateByPrimaryKey" parameterType="com.springboot.model.UserAddress">-->
+<!--    update user_address-->
+<!--    set user_id = #{userId,jdbcType=INTEGER},-->
+<!--      consignee = #{consignee,jdbcType=VARCHAR},-->
+<!--      address = #{address,jdbcType=VARCHAR},-->
+<!--      address_staus = #{addressStaus,jdbcType=INTEGER},-->
+<!--      user_tel = #{userTel,jdbcType=VARCHAR}-->
+<!--    where address_id = #{addressId,jdbcType=INTEGER}-->
+<!--  </update>-->
+<!--  <resultMap id="BaseResultMap" type="com.springboot.model.UserAddress">-->
+<!--    <id column="address_id" jdbcType="INTEGER" property="addressId" />-->
+<!--    <result column="user_id" jdbcType="INTEGER" property="userId" />-->
+<!--    <result column="consignee" jdbcType="VARCHAR" property="consignee" />-->
+<!--    <result column="address" jdbcType="VARCHAR" property="address" />-->
+<!--    <result column="address_staus" jdbcType="INTEGER" property="addressStaus" />-->
+<!--    <result column="user_tel" jdbcType="VARCHAR" property="userTel" />-->
+<!--  </resultMap>-->
+<!--  <sql id="Base_Column_List">-->
+<!--    address_id, user_id, consignee, address, address_staus, user_tel-->
+<!--  </sql>-->
+<!--  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">-->
+<!--    select -->
+<!--    <include refid="Base_Column_List" />-->
+<!--    from user_address-->
+<!--    where address_id = #{addressId,jdbcType=INTEGER}-->
+<!--  </select>-->
+<!--  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">-->
+<!--    delete from user_address-->
+<!--    where address_id = #{addressId,jdbcType=INTEGER}-->
+<!--  </delete>-->
+<!--  <insert id="insert" parameterType="com.springboot.model.UserAddress">-->
+<!--    insert into user_address (address_id, user_id, consignee, -->
+<!--      address, address_staus, user_tel-->
+<!--      )-->
+<!--    values (#{addressId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{consignee,jdbcType=VARCHAR}, -->
+<!--      #{address,jdbcType=VARCHAR}, #{addressStaus,jdbcType=INTEGER}, #{userTel,jdbcType=VARCHAR}-->
+<!--      )-->
+<!--  </insert>-->
+<!--  <insert id="insertSelective" parameterType="com.springboot.model.UserAddress">-->
+<!--    insert into user_address-->
+<!--    <trim prefix="(" suffix=")" suffixOverrides=",">-->
+<!--      <if test="addressId != null">-->
+<!--        address_id,-->
+<!--      </if>-->
+<!--      <if test="userId != null">-->
+<!--        user_id,-->
+<!--      </if>-->
+<!--      <if test="consignee != null">-->
+<!--        consignee,-->
+<!--      </if>-->
+<!--      <if test="address != null">-->
+<!--        address,-->
+<!--      </if>-->
+<!--      <if test="addressStaus != null">-->
+<!--        address_staus,-->
+<!--      </if>-->
+<!--      <if test="userTel != null">-->
+<!--        user_tel,-->
+<!--      </if>-->
+<!--    </trim>-->
+<!--    <trim prefix="values (" suffix=")" suffixOverrides=",">-->
+<!--      <if test="addressId != null">-->
+<!--        #{addressId,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="userId != null">-->
+<!--        #{userId,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="consignee != null">-->
+<!--        #{consignee,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="address != null">-->
+<!--        #{address,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="addressStaus != null">-->
+<!--        #{addressStaus,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="userTel != null">-->
+<!--        #{userTel,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--    </trim>-->
+<!--  </insert>-->
+<!--  <update id="updateByPrimaryKeySelective" parameterType="com.springboot.model.UserAddress">-->
+<!--    update user_address-->
+<!--    <set>-->
+<!--      <if test="userId != null">-->
+<!--        user_id = #{userId,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="consignee != null">-->
+<!--        consignee = #{consignee,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="address != null">-->
+<!--        address = #{address,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="addressStaus != null">-->
+<!--        address_staus = #{addressStaus,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="userTel != null">-->
+<!--        user_tel = #{userTel,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--    </set>-->
+<!--    where address_id = #{addressId,jdbcType=INTEGER}-->
+<!--  </update>-->
+<!--  <update id="updateByPrimaryKey" parameterType="com.springboot.model.UserAddress">-->
+<!--    update user_address-->
+<!--    set user_id = #{userId,jdbcType=INTEGER},-->
+<!--      consignee = #{consignee,jdbcType=VARCHAR},-->
+<!--      address = #{address,jdbcType=VARCHAR},-->
+<!--      address_staus = #{addressStaus,jdbcType=INTEGER},-->
+<!--      user_tel = #{userTel,jdbcType=VARCHAR}-->
+<!--    where address_id = #{addressId,jdbcType=INTEGER}-->
+<!--  </update>-->
+</mapper>

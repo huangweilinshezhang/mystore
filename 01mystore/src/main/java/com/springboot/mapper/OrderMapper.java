@@ -2,6 +2,9 @@ package com.springboot.mapper;
 
 import com.springboot.model.Order;
 
+import java.util.Date;
+import java.util.List;
+
 public interface OrderMapper {
     int deleteByPrimaryKey(Integer orderId);
 
@@ -15,5 +18,9 @@ public interface OrderMapper {
 
     int updateByPrimaryKey(Order record);
 
-    int insertOrder(int userId, Integer productId, Integer productNumber, String format, int expressId, int total, String evaluate, int orderState);
+    int insertOrder(int userId, Integer productId, Integer productNumber, Date orderTime, int expressId, int total, String evaluate, int orderState);
+
+    List<Order> getAllOrder(int pageNum, int pageSize);
+
+    void delOrder(int orderId);
 }

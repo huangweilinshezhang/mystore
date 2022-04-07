@@ -44,7 +44,7 @@
         </javaClientGenerator>
 
         <!-- 数据库表名及对应的 Java 模型类名 -->
-        <table tableName="order" domainObjectName="Order"
+        <table tableName="user_address" domainObjectName="UserAddress"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"

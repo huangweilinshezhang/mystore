@@ -1,11 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head lang="en">
+
+<head>
     <meta charset="utf-8"/>
     <title>cart</title>
     <link rel="stylesheet" type="text/css" href="css/public.css"/>
     <link rel="stylesheet" type="text/css" href="css/proList.css"/>
     <link rel="stylesheet" th:href="@{/css/pagination.css}">
+
+    <link rel="stylesheet" href="css/vendor/vendor.min.css">
+    <link rel="stylesheet" href="css/plugins/plugins.min.css">
+    <link rel="stylesheet" href="css/style.min.css">
+    <script src="js/vendor.min.js"></script>
+    <script src="js/plugins.min.js"></script>
+
+
+    <!--Main JS-->
+    <script src="js/main.js"></script>
+
+    <script src="js/jquery-1.12.2.js"></script>
     <script src="/js/cart/jquery-1.12.2.js"></script>
     <script th:src="@{/js/jquery.pagination.js}"></script>
     <link rel="stylesheet" type="text/css" href="css/common.css"/>
@@ -14,40 +27,114 @@
     <script src="/js/cart/public.js" type="text/javascript" charset="utf-8"></script>
     <script src="/js/cart/pro.js" type="text/javascript" charset="utf-8"></script>
     <script src="/js/cart/cart.js" type="text/javascript" charset="utf-8"></script>
-<!--    <script type="text/javascript">-->
-<!--        function test() {-->
-<!--    alert("我是行间事件");-->
-<!--}-->
-<!--function add() {-->
-<!--        var c = Number($(".text").text());-->
-<!--&lt;!&ndash;        int aaa=parseInt(c);&ndash;&gt;-->
-<!--        console.log("c:"+c);-->
-<!--        if (c >= 5) {-->
-<!--            confirm("限购5件");-->
-<!--        } else {-->
-<!--            c++;-->
-<!--            $(".text").text(c);-->
-<!--            var d = $(this).parents(".number").prev().text().substring(1);-->
-<!--            $(this).parents(".th").find(".sAll").text("￥" + (c * d).toFixed(2));-->
-<!--            a();-->
-<!--            b()-->
-<!--        }-->
-<!--    }-->
-<!--    </script>-->
+
 </head>
-<body><!--------------------------------------cart--------------------->
-<div class="head ding">
-    <div class="wrapper clearfix">
-<!--        <img src="/img/cart/cartTop01.png">-->
-<!--        <button onclick="test()"><p>1111</p></button>-->
+
+<body>
+
+<!-- Header Section Start -->
+<div class="header" style="background:#212529;">
+    <div class="sticky-header">
+        <div class="header-container container-fluid">
+            <div class="header-wrapper">
+
+                <!-- Header Logo Start -->
+                <div class="header-logo">
+                    <a href="index.html"><img src="images/logo/logo.png" alt="Logo"></a>
+                </div>
+                <!-- Header Logo End -->
+
+                <!-- Header Menu Start -->
+                <div class="main-menu d-none d-lg-flex">
+                    <ul>
+                        <li><a class="active" href="/index">首页</a></li>
+                        <li><a href="/about">关于我们</a></li>
+                        <li class="has-children">
+                            <a href="/service">服务</a>
+                            <ul class="sub-menu">
+                                <li><a href="/service">服务</a></li>
+                                <li><a href="/serviceDetails">服务详情</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-children">
+                            <a href="/portfolio">产品</a>
+                            <ul class="sub-menu">
+                                <li><a href="/portfolio">产品</a></li>
+                                <!--                                <li><a href="/portfolioDetails">产品详情</a></li>-->
+                            </ul>
+                        </li>
+                        <li class="has-children">
+                            <a href="blog">博客</a>
+                            <ul class="sub-menu">
+                                <li><a href="/blog">博客</a></li>
+                                <li><a href="/blogDetails">博客详情</a></li>
+                                <li><a href="/blogDetailsSidebar">博客侧边栏详情</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="contact">联系我们</a></li>
+                    </ul>
+                </div>
+                <!-- Header Menu End -->
+
+                <!-- Header Social Actions Start -->
+                <div class="header-social-actions">
+                    <div class="header-social d-none d-lg-block">
+                        <!--                                <span th:text="${session.isLogin}"></span>-->
+                        <ul>
+                            <!--                                <span th:if="${isLogin} == 1">登录</span>-->
+                            <if th:if="${session.isLogin} !=1">
+                                <li >
+                                    <a href="/login">登录</a>
+                                </li>
+                            </if>
+                            <if th:if="${session.isLogin} ==1">
+                                <li style="width:100%;height:100%;">
+                                    <!--                                        <div th:each="user,userStat:${user}">-->
+                                    <img th:src="'/img/userImage/'+${session.user.UserTouxiang} " style="height:40px;width:40px;margin:0 0;">
+                                    <a th:text="${session.user.UserName}"></a>
+                                    <a href="/layout">退出</a>
+                                    <a href="/getAllPerson">进入后台</a>
+                            </if>
+
+                        </ul>
+                    </div>
+
+                    <div class="header-actions">
+                        <!-- Mobile Menu Hambarger Action Button Start -->
+                        <a class="header-action-btn header-action-search d-flex" href="#/">
+                            <i class="fa fa-search"></i>
+                        </a>
+                        <!-- Mobile Menu Hambarger Action Button End -->
+                        <!-- Mobile Menu Hambarger Action Button Start -->
+                        <a class="header-action-btn header-action-btn-menu d-flex" href="#/">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </a>
+                        <!-- Mobile Menu Hambarger Action Button End -->
+                    </div>
+
+                </div>
+                <!-- Header Social Actions End -->
+
+            </div>
+        </div>
     </div>
 </div>
+<!-- Header Section End -->
+
+
+
 <div class="cart mt"><!-----------------logo------------------->
     <!--<div class="logo"><h1 class="wrapper clearfix"><a href="index.html"><img class="fl" src="img/temp/logo.png"></a><img class="top" src="img/temp/cartTop01.png"></h1></div>-->
     <!-----------------site------------------->
     <div class="site"><p class=" wrapper clearfix"><span class="fl">购物车</span>
-        <img class="top" src="img/cart/cartTop01.png"><a
-            href="/portfolio" class="fr">继续购物&gt;</a></p></div><!-----------------table------------------->
+        <img class="top" src="img/cart/cartTop01.png"><a href="/portfolio" class="fr">继续购物&gt;</a>
+    </div>
+<!--    <hr>-->
+    <!-----------------table------------------->
+<!--    <a href="/portfolio" class="fr">继续购物&gt;</a></p>-->
+<!--    <hr>-->
     <div class="table wrapper">
         <div class="tr">
             <div>商品</div>
@@ -57,12 +144,12 @@
             <div>操作</div>
         </div>
         <div class="th" th:each="product,productStat:${session.plist}">
-<!--            购物车显示开始-->
+            <!--            购物车显示开始-->
             <div class="pro clearfix"><label class="fl" >
                 <input type="checkbox"/><span></span></label><a class="fl" href="#">
                 <dl class="clearfix">
                     <dt class="fl" th:each="img,imgStat:${session.FinishpImg}" th:if="${productStat.index}==${imgStat.index}">
-                    <img th:src="'/img/productImage/'+${img.ImgNumber}" style="width:100px;height:100px;"/>
+                        <img th:src="'/img/productImage/'+${img.ImgNumber}" style="width:100px;height:100px;"/>
                     </dt>
                     <dd class="fl" th:each="product2,productStat2:${session.plist}" th:if="${productStat.index}==${productStat2.index}">
                         <p th:text="${product2.productName}"></p>
@@ -75,18 +162,20 @@
             <div class="price" ><span th:text="'价格：'+${product.ProductPrice}"></span></div>
             <div class="number" th:each="scList,scListStat:${session.scList}" th:if="${productStat.index}==${scListStat.index}" >
                 <p class="num clearfix" >
-<!--                    增加，减少增加两个超链接直达数据库增减，返回刷新页面 !-->
-                    <img class="fl sub" src="img/cart/sub.jpg">
+                    <!--                    增加，减少增加两个超链接直达数据库增减，返回刷新页面 !-->
+                    <a th:href="'/productNumberSub?userId='+${session.user.UserId}+'&&productId='+${product.productId}+'&&productNumber='+${scList.productNumber}+'&&shoppingId='+${scList.shoppingId}">
+                        <img class="fl sub" src="img/cart/sub.jpg"></a>
                     <span  class="fl text" th:text="${scList.productNumber}"></span>
-                    <img class="fl add" src="img/cart/add.jpg" onclick="add()">
+                    <a th:href="'/productNumberAdd?userId='+${session.user.UserId}+'&&productId='+${product.productId}+'&&productNumber='+${scList.productNumber}+'&&shoppingId='+${scList.shoppingId}">
+                        <img class="fl add" src="img/cart/add.jpg" onclick="add()"></a>
                 </p>
 
             </div>
 
-            <div class="price sAll" >￥12.00(快递费)</div>
+            <div class="price sAll" >￥0.00(快递费)</div>
 
             <div class="price" th:each="scList,scListStat:${session.scList}" th:if="${productStat.index}==${scListStat.index}">
-<!--                设置删除连接-->
+                <!--                设置删除连接-->
                 <span >
                 <a class="del" th:href="'/delShoppingCat?productId='+${product.ProductId}+'&&sellerId='+${product.SellerId}+'&&productNumber='+${scList.productNumber}+'&&userId='+${session.user.UserId}+'&&shoppingId='+${scList.ShoppingId}">
                     删除</a>
@@ -97,79 +186,276 @@
 
         <div class="goOn">空空如也~<a href="index.html">去逛逛</a></div>
         <div class="tr clearfix"><label class="fl"><input class="checkAll" type="checkbox"/><span></span></label>
-            <p class="fr" >
-                <span>共<small id="sl" th:text="${session.totalNumber}"></small>件商品</span><span>合计:&nbsp;<small id="all" th:text="${session.total}">￥0.00</small></span>
-                <a th:href="'/order?userId='+${session.user.UserId}" class="count">结算</a>
+            <p class="fr">
+                <span style="height:100%;">共<small id="sl" th:text="${session.totalNumber}"></small>件商品</span><span>合计:&nbsp;<small id="all" th:text="${session.total}">￥0.00</small></span>
+                <a th:href="'/order?userId='+${session.user.UserId}" class="count" style="background:red;">结算</a>
             </p>
         </div>
-<!--        点击跳转结算页面-->
+        <!--        点击跳转结算页面-->
     </div>
 </div>
 <div class="mask"></div>
-<div class="tipDel"><p>确定要删除该商品吗？</p>
-    <p class="clearfix"><a class="fl cer" href="#">确定</a><a class="fr cancel" href="#">取消</a></p></div><!--返回顶部-->
-<div class="gotop"><a href="cart.html">
-    <dl>
-        <dt><img src="img/gt1.png"/></dt>
-        <dd>去购<br/>物车</dd>
-    </dl>
-</a><a href="#" class="dh">
-    <dl>
-        <dt><img src="img/gt2.png"/></dt>
-        <dd>联系<br/>客服</dd>
-    </dl>
-</a><a href="mygxin.html">
-    <dl>
-        <dt><img src="img/gt3.png"/></dt>
-        <dd>个人<br/>中心</dd>
-    </dl>
-</a><a href="#" class="toptop" style="display: none;">
-    <dl>
-        <dt><img src="img/gt4.png"/></dt>
-        <dd>返回<br/>顶部</dd>
-    </dl>
-</a>
-    <p>400-800-8200</p></div><!--footer-->
+<!--footer-->
 <div class="footer">
     <div class="top">
         <div class="wrapper">
-            <div class="clearfix"><a href="#2" class="fl"><img src="img/foot1.png"/></a><span class="fl">7天无理由退货</span>
+            <div class="clearfix"><a href="#2" class="fl"><img src="img/imghtml/foot1.png"/></a><span class="fl">7天无理由退货</span>
             </div>
-            <div class="clearfix"><a href="#2" class="fl"><img src="img/foot2.png"/></a><span class="fl">15天免费换货</span>
+            <div class="clearfix"><a href="#2" class="fl"><img src="img/imghtml/foot2.png"/></a><span class="fl">15天免费换货</span>
             </div>
-            <div class="clearfix"><a href="#2" class="fl"><img src="img/foot3.png"/></a><span class="fl">满599包邮</span>
+            <div class="clearfix"><a href="#2" class="fl"><img src="img/imghtml/foot3.png"/></a><span class="fl">满599包邮</span>
             </div>
-            <div class="clearfix"><a href="#2" class="fl"><img src="img/foot4.png"/></a><span class="fl">手机特色服务</span>
+            <div class="clearfix"><a href="#2" class="fl"><img src="img/imghtml/foot4.png"/></a><span class="fl">手机特色服务</span>
             </div>
         </div>
     </div>
-    <p class="dibu">最家家居&copy;2013-2017公司版权所有 京ICP备080100-44备0000111000号<br/>
-        违法和不良信息举报电话：188-0130-1238，本网站所列数据，除特殊说明，所有数据均出自我司实验室测试</p></div><!----------------mask------------------->
-<div class="mask"></div><!-------------------mask内容------------------->
-<div class="proDets"><img class="off" src="img/temp/off.jpg"/>
-    <div class="proCon clearfix">
-        <div class="proImg fr"><img class="list" src="img/temp/proDet.jpg"/>
-            <div class="smallImg clearfix"><img src="img/temp/proDet01.jpg" data-src="img/temp/proDet01_big.jpg"><img
-                    src="img/temp/proDet02.jpg" data-src="img/temp/proDet02_big.jpg"><img src="img/temp/proDet03.jpg"
-                                                                                          data-src="img/temp/proDet03_big.jpg"><img
-                    src="img/temp/proDet04.jpg" data-src="img/temp/proDet04_big.jpg"></div>
-        </div>
-        <div class="fl">
-            <div class="proIntro change"><p>颜色分类</p>
-                <div class="smallImg clearfix"><p class="fl on"><img src="img/temp/prosmall01.jpg" alt="白瓷花瓶+20支快乐花"
-                                                                     data-src="img/temp/proBig01.jpg"></p>
-                    <p class="fl"><img src="img/temp/prosmall02.jpg" alt="白瓷花瓶+20支兔尾巴草"
-                                       data-src="img/temp/proBig02.jpg"></p>
-                    <p class="fl"><img src="img/temp/prosmall03.jpg" alt="20支快乐花" data-src="img/temp/proBig03.jpg"></p>
-                    <p class="fl"><img src="img/temp/prosmall04.jpg" alt="20支兔尾巴草" data-src="img/temp/proBig04.jpg"></p>
+
+<!-- Portfolio Section End -->
+
+<!-- Newsletter Section Start -->
+<div class="section section-padding overlay" data-bg-image="images/banner/video-banner.jpg" data-aos="fade-up" data-aos-duration="1100">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+
+                <!-- Newsletter wrapper Start -->
+                <div class="newsletter-wrapper">
+                    <div class="newsletter-content">
+                        <p>订阅我们的<span class="text-color-primary">时事通讯</span>并<br>获取更新新闻和优惠</p>
+                    </div>
+                    <!-- Newsletter Form Start -->
+                    <div class="newsletter-form-wrap p-t-40">
+                        <form id="mc-form" class="mc-form">
+                            <input type="email" id="mc-email" class="form-control email-box" placeholder="Enter your email here.." name="EMAIL">
+                            <button id="mc-submit" class="newsletter-btn" type="submit">Subscribe</button>
+                        </form>
+                        <!-- mailchimp-alerts Start -->
+                        <div class="mailchimp-alerts text-centre">
+                            <div class="mailchimp-submitting"></div><!-- mailchimp-submitting end -->
+                            <div class="mailchimp-success text-success"></div><!-- mailchimp-success end -->
+                            <div class="mailchimp-error text-danger"></div><!-- mailchimp-error end -->
+                        </div>
+                        <!-- mailchimp-alerts end -->
+                    </div>
+                    <!-- Newsletter Form End -->
                 </div>
+                <!-- Newsletter wrapper End -->
+
             </div>
-            <div class="changeBtn clearfix"><a href="#2" class="fl"><p class="buy">确认</p></a><a href="#2" class="fr"><p
-                    class="cart">取消</p></a></div>
         </div>
     </div>
 </div>
-<div class="pleaseC"><p>请选择宝贝</p><img class="off" src="img/temp/off.jpg"/></div>
+<!-- Newsletter Section End -->
 
+<!--== Start Footer Area Wrapper ==-->
+<footer class="section footer-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <!--== Start Footer Widget Area ==-->
+                <div class="footer-widget-area">
+                    <div class="row m-b-n40">
+                        <div class="col-sm-6 col-md-6 col-lg-3 m-b-40" data-aos="fade-up" data-aos-duration="1100">
+                            <div class="widget-item pb-sm-20">
+                                <h4 class="widget-title">WE ARE CREATIVE AGENCY</h4>
+                                <div class="about-widget">
+                                    <p>Nunc ut vehicula ante. Donec cursus felis diam, at vulputate ligula sollicitudin at. Vivamus massa lorem Lorem Ipsum is simple.</p>
+                                    <div class="social-icons">
+                                        <a href="#/"><i class="fa fa-facebook"></i></a>
+                                        <a href="#/"><i class="fa fa-twitter"></i></a>
+                                        <a href="#/"><i class="fa fa-pinterest-p"></i></a>
+                                        <a href="#/"><i class="fa fa-dribbble"></i></a>
+                                        <a href="#/"><i class="fa fa-behance"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-3 d-flex justify-content-start justify-content-lg-center m-b-40" data-aos="fade-up" data-aos-duration="1500">
+                            <div class="widget-item">
+                                <h4 class="widget-title">COMPANY</h4>
+                                <ul class="widget-list">
+                                    <li><a href="about.html">About Us</a></li>
+                                    <li><a href="contact.html">Jobs</a></li>
+                                    <li><a href="contact.html">Press</a></li>
+                                    <li><a href="contact.html">Contact</a></li>
+                                    <li><a href="blog-details.html">Blog</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-3 m-b-40" data-aos="fade-up" data-aos-duration="2000">
+                            <div class="widget-item">
+                                <h4 class="widget-title">RECENT POST</h4>
+                                <ul class="widget-post">
+                                    <li><a href="blog-details.html">Multi-purpose Creative Template</a></li>
+                                    <li><a href="blog-details.html">Design is inherently optimistic. that is its power.</a></li>
+                                    <li><a href="blog-details.html">I wish someone would ask me to design a cathedral</a></li>
+                                    <li><a href="blog-details.html">We help the elderly use the internet</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-3 m-b-40" data-aos="fade-up" data-aos-duration="2500">
+                            <div class="widget-item">
+                                <h4 class="widget-title">REFOLLOW US INSTAGRAM</h4>
+                                <ul class="widget-instagram">
+                                    <li><a href="#/"><img class="fit-image" src="images/instagram/2.jpg" alt="Image-HasTech"></a></li>
+                                    <li><a href="#/"><img class="fit-image" src="images/instagram/3.jpg" alt="Image-HasTech"></a></li>
+                                    <li><a href="#/"><img class="fit-image" src="images/instagram/1.jpg" alt="Image-HasTech"></a></li>
+                                    <li><a href="#/"><img class="fit-image" src="images/instagram/4.jpg" alt="Image-HasTech"></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--== End Footer Widget Area ==-->
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="copyright-content">
+                        <p class="mb-0">Copyright &copy; 2021.Company name All rights reserved.<a target="_blank" href="https://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!--== End Footer Area Wrapper ==-->
+
+<!-- Scroll Top Start -->
+<a href="#" class="scroll-top show" id="scroll-top">
+    <i class="arrow-top icofont-bubble-up"></i>
+    <i class="arrow-bottom icofont-bubble-up"></i>
+</a>
+<!-- Scroll Top End -->
+
+<!-- Mobile Menu Start -->
+<div class="mobile-menu-wrapper">
+    <div class="offcanvas-overlay"></div>
+
+    <!-- Mobile Menu Inner Start -->
+    <div class="mobile-menu-inner">
+
+        <!-- Button Close Start -->
+        <div class="offcanvas-btn-close">
+            <i class="icofont-close-line"></i>
+        </div>
+        <!-- Button Close End -->
+
+        <!-- Mobile Menu Inner Wrapper Start -->
+        <div class="mobile-menu-inner-wrapper">
+
+            <!-- Mobile Menu Start -->
+            <div class="mobile-navigation">
+                <nav>
+                    <ul class="mobile-menu">
+                        <if th:if="${session.isLogin} !=1">
+                            <li >
+                                <a href="/login">登录</a>
+                            </li>
+                        </if>
+                        <if th:if="${session.isLogin} ==1">
+                            <li style="width:100%;height:100%;">
+                                <a th:href="'upUser?id='+${session.user.UserId}"><img th:src="'/img/userImage/'+${session.user.UserTouxiang} " style="height:40px;width:40px;margin:0 0;"></a>
+                                <a th:text="${session.user.UserName}"></a>
+                                <a href="/layout">退出</a>
+                            </li>
+                            <li>
+                                    <span th:if="${session.user.UserStat}==1">
+                                    <a href="/getAllPerson">进入后台</a>
+                                    </span>
+                            </li>
+                        </if>
+                        <li><a href="/index">首页</a></li>
+                        <li><a href="/about">About Us</a></li>
+                        <li class="has-children">
+                            <a href="#">Service <i class="icofont-dotted-down" aria-hidden="true"></i></a>
+                            <ul class="dropdown">
+                                <li><a href="/service">Service</a></li>
+                                <li><a href="/serviceDetails">Service Details</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-children">
+                            <a href="#">Portfolio <i class="icofont-dotted-down" aria-hidden="true"></i></a>
+                            <ul class="dropdown">
+                                <li><a href="/portfolio">Portfolio</a></li>
+                                <!--                                    <li><a href="/portfolioDetails">Portfolio Details</a></li>-->
+                            </ul>
+                        </li>
+                        <li class="has-children">
+                            <a href="#">Blog <i class="icofont-dotted-down" aria-hidden="true"></i></a>
+                            <ul class="dropdown">
+                                <li><a href="/blog">Blog Grid</a></li>
+                                <li><a href="/blogDetails">Blog Details Fullwidth</a></li>
+                                <li><a href="/blogDetailsSidebar">Blog Details Sidebar</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="/contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <!-- Mobile Menu End -->
+
+            <!-- Contact Links/Social Links Start -->
+            <div class="mt-auto bottom-0">
+
+                <!-- Contact Links Start -->
+                <ul class="contact-links">
+                    <li><i class="icofont-phone"></i><a href="tel:+0123456789"> +012 3456 789</a></li>
+                    <li><i class="icofont-envelope-open"></i><a href="mailto:info@example.com"> info@example.com</a></li>
+                    <li><i class="icofont-wall-clock"></i> <span>Monday - Sunday 9.00 - 18.00</span> </li>
+                </ul>
+                <!-- Contact Links End -->
+
+                <div class="header-social">
+                    <ul>
+                        <li>
+                            <a href="#/"><i class="fa fa-facebook-f"></i></a>
+                        </li>
+                        <li>
+                            <a href="#/"><i class="fa fa-twitter"></i></a>
+                        </li>
+                        <li>
+                            <a href="#/"><i class="fa fa-pinterest-p"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Contact Links/Social Links End -->
+        </div>
+        <!-- Mobile Menu Inner Wrapper End -->
+
+    </div>
+    <!-- Mobile Menu Inner End -->
+</div>
+<!-- Mobile Menu End -->
+
+<!-- Offcanvas Search Start -->
+<div class="offcanvas-search">
+    <div class="offcanvas-search-inner">
+
+        <!-- Button Close Start -->
+        <div class="offcanvas-btn-close">
+            <i class="icofont-close-line"></i>
+        </div>
+        <!-- Button Close End -->
+
+        <!-- Offcanvas Search Form Start -->
+        <form class="offcanvas-search-form" action="#">
+            <input type="text" placeholder="Search Here" class="offcanvas-search-input">
+        </form>
+        <!-- Offcanvas Search Form End -->
+
+    </div>
+</div>
+<!-- Offcanvas Search End -->
+
+
+
+
+</div>
 </body>
+
 </html>

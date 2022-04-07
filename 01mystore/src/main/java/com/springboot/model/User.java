@@ -15,9 +15,19 @@ public class User {
 
     private String userTouxiang;
 
-    private Integer userNumber;
+    private String userNumber;
 
     private Integer userAddressId;
+
+    private Integer userStat;
+
+    public Integer getUserStat() {
+        return userStat;
+    }
+
+    public void setUserStat(Integer userStat) {
+        this.userStat = userStat;
+    }
 
     public Integer getUserId() {
         return userId;
@@ -75,11 +85,11 @@ public class User {
         this.userTouxiang = userTouxiang;
     }
 
-    public Integer getUserNumber() {
+    public String getUserNumber() {
         return userNumber;
     }
 
-    public void setUserNumber(Integer userNumber) {
+    public void setUserNumber(String userNumber) {
         this.userNumber = userNumber;
     }
 

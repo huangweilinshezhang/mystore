@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/pagination.css}">
+    <script src="/js/jquery-1.12.2.js"></script>
+    <script th:src="@{/js/jquery.pagination.js}"></script>
+    <link rel="stylesheet" type="text/css" href="css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="css/main.css"/>
+    <style>
+     img {
+    width: 100px;
+    height: 100px;
+    }
+    </style>
+    <script>
+                        		function Delete(mess,url){
+                        			if(confirm(mess)){
+                        				location.href=url;
+                        			}
+                        		}
+
+                        		function selall(o){
+                        			var a=document.getElementsByName('id[]');
+                        			for(var i=0; i<a.length; i++){
+                        				a[i].checked=o.checked;
+                        				console.log(a[i]);
+                        			}
+                        		}
+
+                        		function delmore(mess, formname){
+                        			if(confirm(mess)){
+                        				var form=document.getElementById(formname);
+                        				console.log(formname);
+                        				form.submit();
+                        			}
+                        		}
+                        	</script>
+</head>
+<body>
+<div class="topbar-wrap white">
+    <div class="topbar-inner clearfix">
+        <div class="topbar-logo-wrap clearfix">
+            <h1 class="topbar-logo none"><a href="#" class="navbar-brand">后台管理</a></h1>
+            <ul class="navbar-list clearfix">
+                <li><a href="/index">首页</a></li>
+                <li><a href="/index" target="_blank">网站首页</a></li>
+            </ul>
+        </div>
+        <div class="top-info-wrap">
+            <ul class="top-info-list clearfix">
+                <if th:if="${session.isLogin} !=1">
+                    <li >
+                        <a href="/login">登录</a>
+                    </li>
+                </if>
+                <if th:if="${session.isLogin} ==1">
+                    <li style="width:100%;height:100%;">
+                        <!--                                        <div th:each="user,userStat:${user}">-->
+                        <a th:href="'upUser?id='+${session.user.UserId}"><img th:src="'/img/userImage/'+${session.user.UserTouxiang} " style="height:40px;width:40px;margin:0 0;"></a>
+                        <a th:text="${session.user.UserName}"></a>
+                        <a href="/layout">退出</a>
+                        <!--                        <a href="/getAllPerson">进入后台</a>-->
+                    </li>
+                </if>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container clearfix">
+    <div class="sidebar-wrap">
+        <div class="sidebar-title">
+            <h1>菜单</h1>
+        </div>
+        <div class="sidebar-content">
+            <ul class="sidebar-list">
+                <li>
+                    <a href="#"><i class="icon-font">&#xe003;</i>常用操作</a>
+                    <ul class="sub-menu">
+                        <li><a href="/getAllPerson"><i class="icon_font">&#xe008;</i>【用户管理】</a></li>
+                        <li><a href="/cateSelect"><i class="icon_font">&#xe005;</i>【分类管理】</a></li>
+                        <li><a href="/getAllProduct"><i class="icon_font">&#xe006;</i>【商品管理】</a></li>
+                        <li><a href="/getAllOrder"><i class="icon_font">&#xe004;</i>【订单管理】</a></li>
+                        <li><a href="admin_message.jsp"><i class="icon_font">&#xe012;</i>留言管理</a></li>
+                        <li><a href="admin_new.jsp"><i class="icon_font">&#xe052;</i>微博管理</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="icon-font">&#xe018;</i>系统管理</a>
+                    <ul class="sub-menu">
+                        <li><a href="system.html"><i class="icon-font">&#xe017;</i>系统设置</a></li>
+                        <li><a href="system.html"><i class="icon-font">&#xe037;</i>清理缓存</a></li>
+                        <li><a href="system.html"><i class="icon-font">&#xe046;</i>数据备份</a></li>
+                        <li><a href="system.html"><i class="icon-font">&#xe045;</i>数据还原</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="result-wrap" style="float: left;
+    margin-left: 0px;
+    margin-top: 0;
+    width: 86%;">
+        <form action="/MonkeyShop3/manage/admin_douserdel" id="myform" method="post">
+            <div class="result-title">
+                <div class="result-list">
+                </div>
+            </div>
+            <div class="result-content">
+                <table class="result-tab" width="100%">
+                    <tr>
+                        <th class="tc" width="5%"><input class="allChoose" onclick="selall(this)" type="checkbox"></th>
+                        <th>序列</td>
+                        <th>订单id</td>
+                        <th>订单状态</td>
+                        <th>订单时间</td>
+                        <th>用户id</td>
+                        <th>产品id</td>
+                        <th>购买数量</td>
+                        <th>快递ID</td>
+                        <th>评价</td>
+                        <th>共计</td>
+                        <th>操作</td>
+                    </tr>
+                    <tr th:each="order,orderStat:${session.orderList}">
+                        <td class="tc"><input type="checkbox" name="id[]" value="${order.OrderId}" /></td>
+                        <td><span th:text="${orderStat.index}"></span></td>
+                        <td><span th:text="${order.OrderId}"></span></td>
+                        <td><span th:text="${order.OrderState}"></span></td>
+                        <td><span th:text="${order.OrderTime}"></span></td>
+                        <td><span th:text="${order.UserId}"></span></td>
+                        <td><span th:text="${order.ProductId}"></span></td>
+                        <td><span th:text="${order.ProductNumber}"></span></td>
+                        <td><span th:text="${order.ExpressId}"></span></td>
+                        <td><span th:text="${order.Evaluate}"></span> <br></td>
+                        <td><span th:text="${order.Total}"></span> <br></td>
+                        <td>
+<!--                            <button><a th:href="'/upOrder?orderId='+${order.OrderId}">修改</a></button>-->
+                            <button><a th:href="'/delOrder?orderId='+${order.OrderId}">删除</a></button>
+                        </td>
+                    </tr>
+                    <script>
+                        		function selall(o){
+                        			var a=document.getElementsByName('id[]');
+                        			for(var i=0; i<a.length; i++){
+                        				a[i].checked=o.checked;
+                        				console.log(a[i]);
+                        			}
+                        		}
+                        	</script>
+                </table>
+
+<!--                <div class="list-page">-->
+
+<!--                    共 <span th:text="${pageInfo.total}"> </span>条记录，当前<span th:text="${pageInfo.pageNum}"></span>页-->
+<!--                    <a href="http://localhost:8085/getAllPerson?pageNum=1&pageSize=10">首页</a>-->
+<!--                    <a th:href="'http://localhost:8085/getAllPerson?pageNum='+(${pageInfo.pageNum}-1)+'&pageSize=10'">上一页</a>-->
+<!--                    <a th:href="'http://localhost:8085/getAllPerson?pageNum='+(${pageInfo.pageNum}+1)+'&pageSize=10'">下一页</a>-->
+<!--                    <a th:href="'http://localhost:8085/getAllPerson?pageNum='+${pageInfo.pages}+'&pageSize=10'">尾页</a>-->
+<!--                </div>-->
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

@@ -74,7 +74,7 @@
                             <a href="/portfolio">产品</a>
                             <ul class="sub-menu">
                                 <li><a href="/portfolio">产品</a></li>
-                                <li><a href="/portfolioDetails">产品详情</a></li>
+<!--                                <li><a href="/portfolioDetails">产品详情</a></li>-->
                             </ul>
                         </li>
                         <li class="has-children">
@@ -104,10 +104,13 @@
                             <if th:if="${session.isLogin} ==1">
                                 <li style="width:100%;height:100%;">
                                     <!--                                        <div th:each="user,userStat:${user}">-->
-                                    <img th:src="'/img/userImage/'+${session.user.UserTouxiang} " style="height:40px;width:40px;margin:0 0;">
+                                    <a th:href="'upUser?id='+${session.user.UserId}"><img th:src="'/img/userImage/'+${session.user.UserTouxiang} " style="height:40px;width:40px;margin:0 0;"></a>
                                     <a th:text="${session.user.UserName}"></a>
                                     <a href="/layout">退出</a>
-                                    <a href="/getAllPerson">进入后台</a>
+
+                                    <span th:if="${session.user.UserStat}==1">
+                                            <a href="/getAllPerson">进入后台</a>
+                                        </span>
                             </if>
 
                         </ul>
@@ -218,11 +221,11 @@
 <!--                    scList-->
                     <div class="portfolio-download-btn" th:each="product3,productStat3:${session.pageInfo}" >
 
-                        <a th:href="'/order?productId='+${product3.ProductId}+'&&sellerId='+${product3.SellerId}+'&&productNumber=1'+'&&userId='+${session.user.UserId}" class="btn btn-primary">立即下单</a>
+                        <a th:href="'/cart?productId='+${product3.ProductId}+'&&sellerId='+${product3.SellerId}+'&&productNumber=1'+'&&userId='+${session.user.UserId}" class="btn btn-primary">立即下单</a>
                     </div>
-                    <div th:each="product3,productStat3:${session.pageInfo}" style="margin:2% auto;">
-                        <a th:href="'/cart?productId='+${product3.ProductId}+'&&sellerId='+${product3.SellerId}+'&&productNumber=1'+'&&userId='+${session.user.UserId}" class="btn btn-primary">加入购物车</a>
-                    </div>
+<!--                    <div th:each="product3,productStat3:${session.pageInfo}" style="margin:2% auto;">-->
+<!--                        <a th:href="'/cart?productId='+${product3.ProductId}+'&&sellerId='+${product3.SellerId}+'&&productNumber=1'+'&&userId='+${session.user.UserId}" class="btn btn-primary">加入购物车</a>-->
+<!--                    </div>-->
                 </div>
             </div>
         </div>
@@ -369,6 +372,23 @@
             <div class="mobile-navigation">
                 <nav>
                     <ul class="mobile-menu">
+                        <if th:if="${session.isLogin} !=1">
+                            <li >
+                                <a href="/login">登录</a>
+                            </li>
+                        </if>
+                        <if th:if="${session.isLogin} ==1">
+                            <li style="width:100%;height:100%;">
+                                <a th:href="'upUser?id='+${session.user.UserId}"><img th:src="'/img/userImage/'+${session.user.UserTouxiang} " style="height:40px;width:40px;margin:0 0;"></a>
+                                <a th:text="${session.user.UserName}"></a>
+                                <a href="/layout">退出</a>
+                            </li>
+                            <li>
+                                    <span th:if="${session.user.UserStat}==1">
+                                    <a href="/getAllPerson">进入后台</a>
+                                    </span>
+                            </li>
+                        </if>
                         <li><a href="/index">首页</a></li>
                         <li><a href="/about">About Us</a></li>
                         <li class="has-children">
@@ -382,7 +402,7 @@
                             <a href="#">Portfolio <i class="icofont-dotted-down" aria-hidden="true"></i></a>
                             <ul class="dropdown">
                                 <li><a href="/portfolio">Portfolio</a></li>
-                                <li><a href="/portfolioDetails">Portfolio Details</a></li>
+                                <!--                                    <li><a href="/portfolioDetails">Portfolio Details</a></li>-->
                             </ul>
                         </li>
                         <li class="has-children">

@@ -29,4 +29,19 @@ public class ShoppingCatServiceImpl implements ShoppingCatService {
     public int deleteByPrimaryKey(int shoppingId) {
         return shoppingCatMapper.deleteByPrimaryKey(shoppingId);
     }
+
+    @Override
+    public void productNumberAdd(int userId, int productId, int productNumber,int shoppingId) {
+         shoppingCatMapper.productNumberAdd(userId,productId,productNumber,shoppingId);
+    }
+
+    @Override
+    public void productNumberSub(int userId, int productId, int productNumber,int shoppingId) {
+         shoppingCatMapper.productNumberSub(userId,productId,productNumber,shoppingId);
+    }
+
+    @Override
+    public void updataByPrimaryKey(Integer userId, int orderState) {
+        shoppingCatMapper.updataByPrimaryKey(userId,orderState);
+    }
 }

@@ -20,4 +20,10 @@ public interface ShoppingCatMapper {
     int updateByPrimaryKey(ShoppingCat record);
 
     List<ShoppingCat> selectSellerId(int userId);
+
+    void productNumberAdd(int userId, int productId, int productNumber,int shoppingId);
+
+    void productNumberSub(int userId, int productId, int productNumber,int shoppingId);
+
+    void updataByPrimaryKey(Integer userId, int orderState);
 }

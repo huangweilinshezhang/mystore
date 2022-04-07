@@ -6,21 +6,120 @@
     <link rel="stylesheet" type="text/css" href="css/public.css"/>
     <link rel="stylesheet" type="text/css" href="css/proList.css"/>
     <link rel="stylesheet" th:href="@{/css/pagination.css}">
-    <script src="/js/jquery-1.12.2.js"></script>
-    <script th:src="@{/js/jquery.pagination.js}"></script>
+    <link rel="stylesheet" href="css/vendor/vendor.min.css">
+    <link rel="stylesheet" href="css/plugins/plugins.min.css">
+    <link rel="stylesheet" href="css/style.min.css">
     <link rel="stylesheet" type="text/css" href="css/common.css"/>
     <link rel="stylesheet" type="text/css" href="css/main.css"/>
+
+    <script src="/js/jquery-1.12.2.js"></script>
+    <script src="/js/cart/jquery-1.12.2.js"></script>
+    <script th:src="@{/js/jquery.pagination.js}"></script>
 <!--    以下是自带的js-->
     <script src="js/public.js" type="text/javascript" charset="utf-8"></script>
     <script src="js/pro.js" type="text/javascript" charset="utf-8"></script>
     <script src="js/user.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/cart/public.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/cart/pro.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/cart/cart.js" type="text/javascript" charset="utf-8"></script>
+
+
+    <script src="js/vendor.min.js"></script>
+    <script src="js/plugins.min.js"></script>
 </head>
 <body><!----------------------------------------order------------------>
-<div class="head ding">
-    <div class="wrapper clearfix">
+<!-- Header Section Start -->
+<div class="header" style="background:#212529;">
+    <div class="sticky-header">
+        <div class="header-container container-fluid">
+            <div class="header-wrapper">
 
+                <!-- Header Logo Start -->
+                <div class="header-logo">
+                    <a href="index.html"><img src="images/logo/logo.png" alt="Logo"></a>
+                </div>
+                <!-- Header Logo End -->
+
+                <!-- Header Menu Start -->
+                <div class="main-menu d-none d-lg-flex">
+                    <ul>
+                        <li><a class="active" href="/index">首页</a></li>
+                        <li><a href="/about">关于我们</a></li>
+                        <li class="has-children">
+                            <a href="/service">服务</a>
+                            <ul class="sub-menu">
+                                <li><a href="/service">服务</a></li>
+                                <li><a href="/serviceDetails">服务详情</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-children">
+                            <a href="/portfolio">产品</a>
+                            <ul class="sub-menu">
+                                <li><a href="/portfolio">产品</a></li>
+                                <!--                                <li><a href="/portfolioDetails">产品详情</a></li>-->
+                            </ul>
+                        </li>
+                        <li class="has-children">
+                            <a href="blog">博客</a>
+                            <ul class="sub-menu">
+                                <li><a href="/blog">博客</a></li>
+                                <li><a href="/blogDetails">博客详情</a></li>
+                                <li><a href="/blogDetailsSidebar">博客侧边栏详情</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="contact">联系我们</a></li>
+                    </ul>
+                </div>
+                <!-- Header Menu End -->
+
+                <!-- Header Social Actions Start -->
+                <div class="header-social-actions">
+                    <div class="header-social d-none d-lg-block">
+                        <!--                                <span th:text="${session.isLogin}"></span>-->
+                        <ul>
+                            <!--                                <span th:if="${isLogin} == 1">登录</span>-->
+                            <if th:if="${session.isLogin} !=1">
+                                <li >
+                                    <a href="/login">登录</a>
+                                </li>
+                            </if>
+                            <if th:if="${session.isLogin} ==1">
+                                <li style="width:100%;height:100%;">
+                                    <!--                                        <div th:each="user,userStat:${user}">-->
+                                    <img th:src="'/img/userImage/'+${session.user.UserTouxiang} " style="height:40px;width:40px;margin:0 0;">
+                                    <a th:text="${session.user.UserName}"></a>
+                                    <a href="/layout">退出</a>
+                                    <a href="/getAllPerson">进入后台</a>
+                            </if>
+
+                        </ul>
+                    </div>
+
+                    <div class="header-actions">
+                        <!-- Mobile Menu Hambarger Action Button Start -->
+                        <a class="header-action-btn header-action-search d-flex" href="#/">
+                            <i class="fa fa-search"></i>
+                        </a>
+                        <!-- Mobile Menu Hambarger Action Button End -->
+                        <!-- Mobile Menu Hambarger Action Button Start -->
+                        <a class="header-action-btn header-action-btn-menu d-flex" href="#/">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </a>
+                        <!-- Mobile Menu Hambarger Action Button End -->
+                    </div>
+
+                </div>
+                <!-- Header Social Actions End -->
+
+            </div>
+        </div>
     </div>
 </div>
+<!-- Header Section End -->
+<hr>
+<!--Content Section Start-->
 <div class="order cart mt"><!-----------------site------------------->
     <div class="site"><p class="wrapper clearfix"><span class="fl">订单确认</span><img class="top"
                                                                                    src="img/cart/cartTop02.png"></p>
@@ -30,91 +129,59 @@
             <!--------addres---------------->
             <div class="addres clearfix">
                 <div class="addre fl on">
-                    <div class="tit clearfix"><p class="fl">张三1 <span class="default">[默认地址]</span></p>
+                    <div class="tit clearfix"><p class="fl" th:text="${session.user.userName}"><span class="default">[默认地址]</span></p>
                         <p class="fr"><a href="#">删除</a><span>|</span><a href="#" class="edit">编辑</a></p></div>
-                    <div class="addCon"><p>河北省&nbsp;唐山市&nbsp;路北区&nbsp;大学生公寓村</p>
-                        <p>15732570937</p></div>
+                    <div class="addCon"><p th:text="'地址：'+${session.user.userAddressId}"></p>
+                        <p th:text="'电话：'+${session.user.userNumber}">15732570937</p></div>
                 </div>
-                <div class="addre fl">
-                    <div class="tit clearfix"><p class="fl">张三2</p>
-                        <p class="fr"><a href="#" class="setDefault">设为默认</a><span>|</span><a
-                                href="#">删除</a><span>|</span><a href="#" class="edit">编辑</a></p></div>
-                    <div class="addCon"><p>河北省&nbsp;唐山市&nbsp;路北区&nbsp;大学生公寓村</p>
-                        <p>15732570937</p></div>
-                </div>
-                <div class="addre fl">
-                    <div class="tit clearfix"><p class="fl">张三3</p>
-                        <p class="fr"><a href="#" class="setDefault">设为默认</a><span>|</span><a
-                                href="#">删除</a><span>|</span><a href="#" class="edit">编辑</a></p></div>
-                    <div class="addCon"><p>河北省&nbsp;唐山市&nbsp;路北区&nbsp;大学生公寓村</p>
-                        <p>15732570937</p></div>
-                </div>
+
             </div>
             <h3>支付方式</h3><!--------way---------------->
-            <div class="way clearfix"><img class="on" src="img/temp/way01.jpg"><img src="img/temp/way02.jpg"><img
-                    src="img/temp/way03.jpg"><img src="img/temp/way04.jpg"></div>
+            <div class="way clearfix"><img class="on" src="img/imghtml/way01.jpg"><img src="img/imghtml/way02.jpg"><img
+                    src="img/imghtml/way03.jpg"><img src="img/imghtml/way04.jpg"></div>
             <h3>选择快递</h3><!--------dis---------------->
             <div class="dis clearfix"><span class="on">顺风快递</span><span>百世汇通</span><span>圆通快递</span><span>中通快递</span>
             </div>
         </div>
-        <div class="orderR fr">
-            <div class="msg"><h3>订单内容<a href="cart.html" class="fr">返回购物车</a></h3><!--------ul---------------->
-                <ul class="clearfix">
-                    <li class="fl"><img src="img/temp/order01.jpg"></li>
-                    <li class="fl"><p>创意现代简约干花花瓶摆件</p>
-                        <p>颜色分类：烟灰色玻璃瓶</p>
-                        <p>数量：1</p></li>
-                    <li class="fr">￥69.90</li>
-                </ul>
-                <ul class="clearfix">
-                    <li class="fl"><img src="img/temp/order02.jpg"></li>
-                    <li class="fl"><p>创意现代简约干花花瓶摆件</p>
-                        <p>颜色分类：烟灰色玻璃瓶</p>
-                        <p>数量：1</p></li>
-                    <li class="fr">￥69.90</li>
+        <div class="orderR fr" >
+            <div class="msg"><h3>订单内容<a th:href="'/ShoppingCatList?userId='+${session.user.UserId}" class="fr">返回购物车</a></h3><!--------ul---------------->
+                <ul class="clearfix" th:each="product,productStat:${session.plist}">
+                    <li class="fl" th:each="img,imgStat:${session.FinishpImg}" th:if="${productStat.index}==${imgStat.index}">
+                        <img th:src="'/img/productImage/'+${img.ImgNumber}" style="width:100px;height:100px;"></li>
+                    <li class="fl"th:each="scList,scListStat:${session.scList}" th:if="${productStat.index}==${scListStat.index}" ><p th:text="${product.productName}"></p>
+                        <p th:text="'名字：'+${product.productName}"></p>
+                        <p th:text="'数量：'+${scList.productNumber}"></p></li>
+                    <li class="fr"><span th:text="'价格：'+${product.ProductPrice}"></span></li>
                 </ul>
             </div><!--------tips---------------->
-            <div class="tips"><p><span class="fl">商品金额：</span><span class="fr">￥139.80</span></p>
+            <div class="tips"><p><span class="fl">商品金额：</span><span class="fr" th:text="${session.total}">￥139.80</span></p>
                 <p><span class="fl">优惠金额：</span><span class="fr">￥0.00</span></p>
                 <p><span class="fl">运费：</span><span class="fr">免运费</span></p></div><!--------tips count---------------->
-            <div class="count tips"><p><span class="fl">合计：</span><span class="fr">￥139.80</span></p></div>
-            <!--<input type="button" name="" value="去支付">--> <a href="/ok" class="pay">去支付</a></div>
+            <div class="count tips"><p><span class="fl">合计：</span><span class="fr" th:text="${session.monkey}">￥139.80</span></p></div>
+            <!--<input type="button" name="" value="去支付">--> <a th:href="'/ok?userId='+${session.user.UserId}" class="pay">去支付</a></div>
     </div>
 </div><!--编辑弹框--><!--遮罩-->
 <div class="mask"></div>
-<div class="adddz editAddre">
-    <form action="#" method="get"><input type="text" placeholder="姓名" class="on"/><input type="text" placeholder="手机号"/>
-        <div class="city"><select name="">
-            <option value="省份/自治区">省份/自治区</option>
-        </select><select>
-            <option value="城市/地区">城市/地区</option>
-        </select><select>
-            <option value="区/县">区/县</option>
-        </select><select>
-            <option value="配送区域">配送区域</option>
-        </select></div>
-        <textarea name="" rows="" cols="" placeholder="详细地址"></textarea><input type="text" placeholder="邮政编码"/>
-        <div class="bc"><input type="button" value="保存"/><input type="button" value="取消"/></div>
-    </form>
-</div><!--返回顶部-->
-<div class="gotop"><a href="cart.html">
+<!--Content Section End-->
+
+<div class="gotop"><a th:href="'/ShoppingCatList?userId='+${session.user.UserId}">
     <dl>
-        <dt><img src="img/gt1.png"/></dt>
+        <dt><img src="/img/imghtml/gwc.png"/></dt>
         <dd>去购<br/>物车</dd>
     </dl>
 </a><a href="#" class="dh">
     <dl>
-        <dt><img src="img/gt2.png"/></dt>
+        <dt><img src="img/imghtml/kf.png"/></dt>
         <dd>联系<br/>客服</dd>
     </dl>
 </a><a href="mygxin.html">
     <dl>
-        <dt><img src="img/gt3.png"/></dt>
+        <dt><img src="img/imghtml/grzximg.png"/></dt>
         <dd>个人<br/>中心</dd>
     </dl>
 </a><a href="#" class="toptop" style="display: none;">
     <dl>
-        <dt><img src="img/gt4.png"/></dt>
+        <dt><img src="img/imghtml/ffdb.png"/></dt>
         <dd>返回<br/>顶部</dd>
     </dl>
 </a>
@@ -122,18 +189,17 @@
 <div class="footer">
     <div class="top">
         <div class="wrapper">
-            <div class="clearfix"><a href="#2" class="fl"><img src="img/foot1.png"/></a><span class="fl">7天无理由退货</span>
+            <div class="clearfix"><a href="#2" class="fl"><img src="img/imghtml/foot1.png"/></a><span class="fl">7天无理由退货</span>
             </div>
-            <div class="clearfix"><a href="#2" class="fl"><img src="img/foot2.png"/></a><span class="fl">15天免费换货</span>
+            <div class="clearfix"><a href="#2" class="fl"><img src="img/imghtml/foot2.png"/></a><span class="fl">15天免费换货</span>
             </div>
-            <div class="clearfix"><a href="#2" class="fl"><img src="img/foot3.png"/></a><span class="fl">满599包邮</span>
+            <div class="clearfix"><a href="#2" class="fl"><img src="img/imghtml/foot3.png"/></a><span class="fl">满599包邮</span>
             </div>
-            <div class="clearfix"><a href="#2" class="fl"><img src="img/foot4.png"/></a><span class="fl">手机特色服务</span>
+            <div class="clearfix"><a href="#2" class="fl"><img src="img/imghtml/foot4.png"/></a><span class="fl">手机特色服务</span>
             </div>
         </div>
     </div>
-    <p class="dibu">最家家居&copy;2013-2017公司版权所有 京ICP备080100-44备0000111000号<br/>
-        违法和不良信息举报电话：188-0130-1238，本网站所列数据，除特殊说明，所有数据均出自我司实验室测试</p></div>
+</div>
 
 </body>
 </html>

@@ -12,4 +12,10 @@ public interface ShoppingCatService {
     List<ShoppingCat> selectUserId(int userId);
 
     int deleteByPrimaryKey(int shoppingId);
+
+    void productNumberAdd(int userId, int productId, int productNumber,int shoppingId);
+
+    void productNumberSub(int userId, int productId, int productNumber,int shoppingId);
+
+    void updataByPrimaryKey(Integer userId, int orderState);
 }
